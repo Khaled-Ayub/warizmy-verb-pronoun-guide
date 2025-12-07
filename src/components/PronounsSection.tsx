@@ -148,15 +148,17 @@ const PronounsSection = () => {
                     value={`separate-${index}`}
                     className="rounded-xl border border-border/50 bg-background/50 px-4"
                   >
+                    {/* Responsive Accordion-Trigger: auf Mobile vertikal, auf Desktop horizontal */}
                     <AccordionTrigger className="hover:no-underline py-3">
-                      <div className="flex items-center gap-4 w-full">
-                        <span className="text-2xl">{pronoun.emoji}</span>
-                        <div className="flex-1 grid grid-cols-3 items-center gap-2">
-                          <span className="text-sm text-muted-foreground text-left">{pronoun.person}</span>
-                          <span className="font-arabic-display text-xl font-semibold text-turquoise text-center" dir="rtl">
+                      <div className="flex items-center gap-2 sm:gap-4 w-full">
+                        <span className="text-xl sm:text-2xl">{pronoun.emoji}</span>
+                        {/* Grid: 1 Spalte auf Mobile, 3 Spalten auf SM+ */}
+                        <div className="flex-1 flex flex-col sm:grid sm:grid-cols-3 items-start sm:items-center gap-1 sm:gap-2">
+                          <span className="text-xs sm:text-sm text-muted-foreground text-left order-3 sm:order-1">{pronoun.person}</span>
+                          <span className="font-arabic-display text-lg sm:text-xl font-semibold text-turquoise text-right sm:text-center order-1 sm:order-2" dir="rtl">
                             {pronoun.arabic}
                           </span>
-                          <span className="text-foreground text-right">{pronoun.german}</span>
+                          <span className="text-foreground text-sm sm:text-base text-left sm:text-right order-2 sm:order-3">{pronoun.german}</span>
                         </div>
                       </div>
                     </AccordionTrigger>
@@ -212,20 +214,23 @@ const PronounsSection = () => {
                     value={`attached-${index}`}
                     className="rounded-xl border border-border/50 bg-background/50 px-4"
                   >
+                    {/* Responsive Accordion-Trigger für verbundene Pronomen */}
                     <AccordionTrigger className="hover:no-underline py-3">
-                      <div className="flex items-center gap-4 w-full">
-                        <span className="text-2xl">{pronoun.emoji}</span>
-                        <div className="flex-1 grid grid-cols-4 items-center gap-2">
-                          <span className="font-arabic-display text-lg font-semibold text-violet-500 text-center" dir="rtl">
+                      <div className="flex items-center gap-2 sm:gap-4 w-full">
+                        <span className="text-xl sm:text-2xl">{pronoun.emoji}</span>
+                        {/* Auf Mobile: 2 Spalten, auf SM+: 4 Spalten */}
+                        <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 items-center gap-1 sm:gap-2">
+                          <span className="font-arabic-display text-base sm:text-lg font-semibold text-violet-500 text-center" dir="rtl">
                             {pronoun.suffix}
                           </span>
-                          <span className="font-arabic-display text-foreground text-center" dir="rtl">
+                          {/* Beispiele nur auf Desktop anzeigen */}
+                          <span className="font-arabic-display text-foreground text-center hidden sm:block" dir="rtl">
                             {pronoun.verbExample}
                           </span>
-                          <span className="font-arabic-display text-foreground text-center" dir="rtl">
+                          <span className="font-arabic-display text-foreground text-center hidden sm:block" dir="rtl">
                             {pronoun.nounExample}
                           </span>
-                          <span className="text-sm text-muted-foreground text-right">
+                          <span className="text-xs sm:text-sm text-muted-foreground text-right">
                             {pronoun.german}
                           </span>
                         </div>
