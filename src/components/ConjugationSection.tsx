@@ -46,12 +46,12 @@ const ConjugationSection = () => {
     <section className="bg-gradient-to-b from-muted/30 to-background py-16 md:py-24">
       <div className="container">
         <div className="mb-12 text-center">
-          <p className="mb-2 font-arabic-display text-turquoise">تصريف الأفعال</p>
+          <p className="mb-2 font-arabic-display text-turquoise" dir="rtl">تصريف الأفعال</p>
           <h2 className="mb-4 text-3xl font-bold text-primary md:text-4xl">
             Konjugation der Verben
           </h2>
           <p className="text-muted-foreground">
-            Am Beispiel von <span className="font-arabic-display font-semibold">نَصَرَ</span> (helfen)
+            Am Beispiel von <span className="font-arabic-display font-semibold" dir="rtl">نَصَرَ</span> (helfen)
           </p>
         </div>
 
@@ -62,42 +62,42 @@ const ConjugationSection = () => {
                 value="past"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white"
               >
-                <span className="hidden sm:inline">Vergangenheit – </span>الماضي
+                <span className="hidden sm:inline">Vergangenheit – </span><span dir="rtl">الماضي</span>
               </TabsTrigger>
               <TabsTrigger
                 value="present"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-turquoise data-[state=active]:to-turquoise-light data-[state=active]:text-night-blue"
               >
-                <span className="hidden sm:inline">Gegenwart – </span>المضارع
+                <span className="hidden sm:inline">Gegenwart – </span><span dir="rtl">المضارع</span>
               </TabsTrigger>
               <TabsTrigger
                 value="imperative"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-violet-500 data-[state=active]:to-purple-500 data-[state=active]:text-white"
               >
-                <span className="hidden sm:inline">Imperativ – </span>الأمر
+                <span className="hidden sm:inline">Imperativ – </span><span dir="rtl">الأمر</span>
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="past" className="mt-0">
-              <div className="table-container">
+              <div className="table-container" dir="ltr">
                 <table>
                   <thead>
                     <tr>
-                      <th>Pronomen</th>
-                      <th>Verb</th>
-                      <th>Deutsch</th>
+                      <th className="text-right">Pronomen</th>
+                      <th className="text-right">Verb</th>
+                      <th className="text-left">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {pastConjugation.map((item) => (
                       <tr key={item.pronoun}>
-                        <td className="font-arabic-display text-lg font-semibold text-turquoise">
+                        <td className="font-arabic-display text-lg font-semibold text-turquoise text-right" dir="rtl">
                           {item.pronoun}
                         </td>
-                        <td className="font-arabic-display text-lg text-foreground">
+                        <td className="font-arabic-display text-lg text-foreground text-right" dir="rtl">
                           {item.form}
                         </td>
-                        <td className="text-muted-foreground">
+                        <td className="text-muted-foreground text-left">
                           {item.german}
                         </td>
                       </tr>
@@ -108,25 +108,25 @@ const ConjugationSection = () => {
             </TabsContent>
 
             <TabsContent value="present" className="mt-0">
-              <div className="table-container">
+              <div className="table-container" dir="ltr">
                 <table>
                   <thead>
                     <tr>
-                      <th>Pronomen</th>
-                      <th>Verb</th>
-                      <th>Deutsch</th>
+                      <th className="text-right">Pronomen</th>
+                      <th className="text-right">Verb</th>
+                      <th className="text-left">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {presentConjugation.map((item) => (
                       <tr key={item.pronoun}>
-                        <td className="font-arabic-display text-lg font-semibold text-turquoise">
+                        <td className="font-arabic-display text-lg font-semibold text-turquoise text-right" dir="rtl">
                           {item.pronoun}
                         </td>
-                        <td className="font-arabic-display text-lg text-foreground">
+                        <td className="font-arabic-display text-lg text-foreground text-right" dir="rtl">
                           {item.form}
                         </td>
-                        <td className="text-muted-foreground">
+                        <td className="text-muted-foreground text-left">
                           {item.german}
                         </td>
                       </tr>
@@ -137,31 +137,31 @@ const ConjugationSection = () => {
 
               <div className="mt-6 rounded-xl bg-turquoise/10 p-4 text-center">
                 <p className="font-medium text-foreground">
-                  Präsensbuchstaben: <span className="font-arabic-display text-turquoise">أ – ن – ي – ت</span>
+                  Präsensbuchstaben: <span className="font-arabic-display text-turquoise" dir="rtl">أ – ن – ي – ت</span>
                 </p>
               </div>
             </TabsContent>
 
             <TabsContent value="imperative" className="mt-0">
-              <div className="table-container">
+              <div className="table-container" dir="ltr">
                 <table>
                   <thead>
                     <tr>
-                      <th>Pronomen</th>
-                      <th>Verb</th>
-                      <th>Deutsch</th>
+                      <th className="text-right">Pronomen</th>
+                      <th className="text-right">Verb</th>
+                      <th className="text-left">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {imperativeConjugation.map((item) => (
                       <tr key={item.pronoun}>
-                        <td className="font-arabic-display text-lg font-semibold text-turquoise">
+                        <td className="font-arabic-display text-lg font-semibold text-turquoise text-right" dir="rtl">
                           {item.pronoun}
                         </td>
-                        <td className="font-arabic-display text-lg text-foreground">
+                        <td className="font-arabic-display text-lg text-foreground text-right" dir="rtl">
                           {item.form}
                         </td>
-                        <td className="text-muted-foreground">
+                        <td className="text-muted-foreground text-left">
                           {item.german}
                         </td>
                       </tr>
@@ -191,20 +191,20 @@ const ConjugationSection = () => {
                 <p className="mb-3 font-medium text-foreground">{verb.german}</p>
                 <div className="space-y-2">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-16 text-left text-xs text-muted-foreground">Vergangen.</span>
-                    <span className="font-arabic-display text-lg font-bold text-foreground">
+                    <span className="w-20 text-left text-xs text-muted-foreground">Vergangen.</span>
+                    <span className="font-arabic-display text-lg font-bold text-foreground" dir="rtl">
                       {verb.past}
                     </span>
                   </div>
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-16 text-left text-xs text-muted-foreground">Gegenwart</span>
-                    <span className="font-arabic-display text-lg text-turquoise">
+                    <span className="w-20 text-left text-xs text-muted-foreground">Gegenwart</span>
+                    <span className="font-arabic-display text-lg text-turquoise" dir="rtl">
                       {verb.present}
                     </span>
                   </div>
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-16 text-left text-xs text-muted-foreground">Imperativ</span>
-                    <span className="font-arabic-display text-lg text-violet-500">
+                    <span className="w-20 text-left text-xs text-muted-foreground">Imperativ</span>
+                    <span className="font-arabic-display text-lg text-violet-500" dir="rtl">
                       {verb.imperative}
                     </span>
                   </div>

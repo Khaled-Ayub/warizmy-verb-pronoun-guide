@@ -34,44 +34,44 @@ const VerbBasicsSection = () => {
         <div className="glass-card overflow-hidden p-8 md:p-12">
           <div className="grid gap-12 lg:grid-cols-2">
             {/* Right side - Definition */}
-            <div>
-              <h2 className="mb-2 text-sm font-medium text-turquoise">
-                الفعل – Das Verb
+            <div dir="ltr">
+              <h2 className="mb-2 text-sm font-medium text-turquoise text-left">
+                Das Verb – <span dir="rtl" className="font-arabic-display">الفعل</span>
               </h2>
-              <h2 className="mb-6 text-3xl font-bold text-primary md:text-4xl">
+              <h2 className="mb-6 text-3xl font-bold text-primary md:text-4xl text-left">
                 Was ist ein Verb?
               </h2>
 
-              <div className="mb-8 rounded-2xl bg-gradient-to-l from-turquoise/10 to-turquoise-light/5 p-6">
-                <p className="mb-3 font-arabic-display text-xl font-semibold text-foreground">
+              <div className="mb-8 rounded-2xl bg-gradient-to-r from-turquoise/10 to-turquoise-light/5 p-6">
+                <p className="mb-3 font-arabic-display text-xl font-semibold text-foreground text-right" dir="rtl">
                   الفعل كلمة تدلّ على حدث في زمن.
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-left">
                   Ein Verb ist ein Wort, das eine Handlung oder einen Zustand in
                   einer bestimmten Zeit ausdrückt.
                 </p>
               </div>
 
-              <p className="mb-4 text-sm text-muted-foreground">Schlüsselbegriffe:</p>
+              <p className="mb-4 text-sm text-muted-foreground text-left">Schlüsselbegriffe:</p>
               <div className="flex flex-wrap gap-3">
-                <div className="chip flex-col items-start gap-0.5 py-2">
-                  <span className="font-arabic-display">حدث</span>
+                <div className="chip flex-col items-center gap-0.5 py-2">
+                  <span className="font-arabic-display" dir="rtl">حدث</span>
                   <span className="text-xs text-muted-foreground">Handlung</span>
                 </div>
-                <div className="chip flex-col items-start gap-0.5 py-2">
-                  <span className="font-arabic-display">زمن</span>
+                <div className="chip flex-col items-center gap-0.5 py-2">
+                  <span className="font-arabic-display" dir="rtl">زمن</span>
                   <span className="text-xs text-muted-foreground">Zeit</span>
                 </div>
-                <div className="chip flex-col items-start gap-0.5 py-2">
-                  <span className="font-arabic-display">المتكلّم</span>
+                <div className="chip flex-col items-center gap-0.5 py-2">
+                  <span className="font-arabic-display" dir="rtl">المتكلّم</span>
                   <span className="text-xs text-muted-foreground">Sprecher</span>
                 </div>
               </div>
             </div>
 
             {/* Left side - Verb Types */}
-            <div className="space-y-4">
-              <h3 className="mb-4 text-lg font-semibold text-foreground">
+            <div className="space-y-4" dir="ltr">
+              <h3 className="mb-4 text-lg font-semibold text-foreground text-left">
                 Die drei Verbarten
               </h3>
               {verbTypes.map((type) => (
@@ -86,13 +86,13 @@ const VerbBasicsSection = () => {
                       <type.icon className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
-                      <p className="mb-0.5 font-arabic-display text-sm text-turquoise">
+                      <p className="mb-0.5 font-arabic-display text-sm text-turquoise text-right" dir="rtl">
                         {type.titleAr}
                       </p>
-                      <h3 className="mb-1 text-lg font-bold text-foreground">
+                      <h3 className="mb-1 text-lg font-bold text-foreground text-left">
                         {type.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground">{type.german}</p>
+                      <p className="text-sm text-muted-foreground text-left">{type.german}</p>
                     </div>
                   </div>
                 </div>
