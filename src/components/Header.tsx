@@ -9,10 +9,10 @@ import logoBlue from "@/assets/logo-blue.png";
  */
 const navItems = [
   { label: "الرئيسية", labelDe: "Startseite", href: "/", icon: Home },
-  { label: "دروس النحو", labelDe: "Grammatik", href: "#", icon: BookOpen },
   { label: "الأفعال والضمائر", labelDe: "Verben & Pronomen", href: "/#verbs", icon: GraduationCap },
+  { label: "مدرب المفردات", labelDe: "Vokabeltrainer", href: "/vokabeltrainer", icon: BookOpen },
   { label: "تدريب الأفعال", labelDe: "Quiz", href: "/verb-quiz", icon: PenTool },
-  { label: "معلومات عنا", labelDe: "Über uns", href: "#about", icon: Info },
+  { label: "معلومات عنا", labelDe: "Über uns", href: "/about", icon: Info },
 ];
 
 const Header = () => {

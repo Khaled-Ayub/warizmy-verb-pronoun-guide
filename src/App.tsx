@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import VerbQuiz from "./pages/VerbQuiz";
+import VocabularyTrainer from "./pages/VocabularyTrainer";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -16,9 +18,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Startseite */}
           <Route path="/" element={<Index />} />
+          {/* Vokabeltrainer mit Quiz */}
+          <Route path="/vokabeltrainer" element={<VocabularyTrainer />} />
+          {/* Altes Quiz (Verb-Übungen) */}
           <Route path="/verb-quiz" element={<VerbQuiz />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          {/* Über uns */}
+          <Route path="/about" element={<About />} />
+          {/* 404 - Seite nicht gefunden */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
