@@ -1,4 +1,4 @@
-import { GraduationCap } from "lucide-react";
+import logoBlue from "@/assets/logo-blue.png";
 
 const Footer = () => {
   return (
@@ -6,9 +6,7 @@ const Footer = () => {
       <div className="container">
         <div className="flex flex-col items-center gap-6 text-center">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise to-turquoise-light">
-              <GraduationCap className="h-5 w-5 text-night-blue" />
-            </div>
+            <img src={logoBlue} alt="Warizmy Akademie Logo" className="h-10 w-10" />
             <div>
               <span className="font-arabic-display text-lg font-bold text-primary">
                 أكاديمية واريزمي
