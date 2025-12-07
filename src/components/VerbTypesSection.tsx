@@ -111,8 +111,8 @@ const VerbTypesSection = () => {
 
                 {/* Pfeil 1 (Mobile - nach unten) */}
                 <div className="sm:hidden flex items-center z-10">
-                  <svg className="h-6 w-6 text-muted-foreground rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  <svg className="h-6 w-6 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
                 </div>
 
@@ -139,8 +139,8 @@ const VerbTypesSection = () => {
 
                 {/* Pfeil 2 (Mobile - nach unten) */}
                 <div className="sm:hidden flex items-center z-10">
-                  <svg className="h-6 w-6 text-muted-foreground rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  <svg className="h-6 w-6 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
                 </div>
 

@@ -1037,6 +1037,8 @@ const VocabularyTrainer = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   // Suchergebnisse anzeigen
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
+  // Offenes Dropdown (null = keins offen)
+  const [openDropdown, setOpenDropdown] = useState<"nouns" | "verbs" | "particles" | null>(null);
 
   // Alle Kategorien mit Icons
   const allCategories = vocabulary.categories.map(cat => ({
@@ -1072,64 +1074,6 @@ const VocabularyTrainer = () => {
   const countNounVocab = () => nounCategoryIds.reduce((sum, id) => sum + getVocabByCategory(id).length, 0);
   const countVerbVocab = () => verbCategoryIds.reduce((sum, id) => sum + getVocabByCategory(id).length, 0);
   const countParticleVocab = () => particleCategoryIds.reduce((sum, id) => sum + getVocabByCategory(id).length, 0);
-
-  // Stil-Konfigurationen für jede Gruppe
-  const groupStyles = {
-    nouns: {
-      borderSelected: "border-sky-500",
-      bgSelected: "bg-gradient-to-br from-sky-500/20 to-sky-500/5",
-      iconBgSelected: "bg-gradient-to-br from-sky-500 to-blue-600",
-      badgeBg: "bg-sky-500/20",
-      badgeText: "text-sky-600",
-      dot: "bg-sky-500"
-    },
-    verbs: {
-      borderSelected: "border-amber-500",
-      bgSelected: "bg-gradient-to-br from-amber-500/20 to-amber-500/5",
-      iconBgSelected: "bg-gradient-to-br from-amber-500 to-orange-600",
-      badgeBg: "bg-amber-500/20",
-      badgeText: "text-amber-600",
-      dot: "bg-amber-500"
-    },
-    particles: {
-      borderSelected: "border-violet-500",
-      bgSelected: "bg-gradient-to-br from-violet-500/20 to-violet-500/5",
-      iconBgSelected: "bg-gradient-to-br from-violet-500 to-purple-600",
-      badgeBg: "bg-violet-500/20",
-      badgeText: "text-violet-600",
-      dot: "bg-violet-500"
-    }
-  };
-
-  // Render-Funktion für kompakte Kategorie-Chips
-  const renderCategoryChip = (
-    cat: { id: string; name: string; nameAr: string; icon: React.ElementType }, 
-    groupType: "nouns" | "verbs" | "particles"
-  ) => {
-    const Icon = cat.icon;
-    const count = getVocabByCategory(cat.id).length;
-    const isSelected = selectedCategory === cat.id;
-    const styles = groupStyles[groupType];
-    
-    return (
-      <button
-        key={cat.id}
-        onClick={() => setSelectedCategory(cat.id)}
-        className={`
-          inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
-          transition-all duration-200
-          ${isSelected 
-            ? `${styles.borderSelected} ${styles.bgSelected} border shadow-sm` 
-            : "border border-border/50 bg-muted/30 hover:bg-muted/50 hover:border-border"
-          }
-        `}
-      >
-        <Icon className={`h-3.5 w-3.5 ${isSelected ? styles.badgeText : "text-muted-foreground"}`} />
-        <span className={isSelected ? "text-foreground" : "text-foreground/80"}>{cat.name}</span>
-        <span className={`text-[10px] ${isSelected ? styles.badgeText : "text-muted-foreground"}`}>({count})</span>
-      </button>
-    );
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -1239,15 +1183,15 @@ const VocabularyTrainer = () => {
             )}
           </div>
 
-          {/* Kategorie-Auswahl - Kompaktes Design */}
-          <div className="mb-8 space-y-4">
-            
-            {/* Alle Vokabeln - Kompakter Button */}
-            <div className="flex justify-center">
+          {/* Kategorie-Auswahl - Dropdown Design */}
+          <div className="mb-8">
+            <div className="flex flex-wrap justify-center items-center gap-2">
+              
+              {/* Alle Vokabeln Button */}
               <button
-                onClick={() => setSelectedCategory("all")}
+                onClick={() => { setSelectedCategory("all"); setOpenDropdown(null); }}
                 className={`
-                  inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
+                  inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium
                   transition-all duration-200
                   ${selectedCategory === "all" 
                     ? "bg-gradient-to-r from-turquoise to-turquoise-light text-night-blue shadow-md" 
@@ -1256,39 +1200,151 @@ const VocabularyTrainer = () => {
                 `}
               >
                 <BookOpen className="h-4 w-4" />
-                <span>Alle Vokabeln</span>
-                <span className="text-xs opacity-80">({getAllVocab().length})</span>
+                <span>Alle</span>
+                <span className="text-xs opacity-70">({getAllVocab().length})</span>
               </button>
+
+              {/* NOMEN Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setOpenDropdown(openDropdown === "nouns" ? null : "nouns")}
+                  className={`
+                    inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium
+                    transition-all duration-200
+                    ${nounCategoryIds.includes(selectedCategory)
+                      ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md" 
+                      : "border border-border bg-muted/30 text-foreground hover:bg-muted/50"
+                    }
+                  `}
+                >
+                  <span>📦</span>
+                  <span>Nomen</span>
+                  <span className="text-xs opacity-70">({countNounVocab()})</span>
+                  <span className={`transition-transform ${openDropdown === "nouns" ? "rotate-180" : ""}`}>▼</span>
+                </button>
+                
+                {/* Nomen Dropdown Menu */}
+                {openDropdown === "nouns" && (
+                  <div className="absolute top-full left-0 mt-1 w-56 bg-background border border-border rounded-xl shadow-xl z-50 overflow-hidden">
+                    {nounCategories.map(cat => {
+                      const Icon = cat.icon;
+                      const count = getVocabByCategory(cat.id).length;
+                      const isSelected = selectedCategory === cat.id;
+                      return (
+                        <button
+                          key={cat.id}
+                          onClick={() => { setSelectedCategory(cat.id); setOpenDropdown(null); }}
+                          className={`w-full px-3 py-2 flex items-center gap-2 text-sm transition-colors ${
+                            isSelected ? "bg-sky-500/20 text-sky-600" : "hover:bg-muted/50"
+                          }`}
+                        >
+                          <Icon className="h-4 w-4" />
+                          <span className="flex-1 text-left">{cat.name}</span>
+                          <span className="text-xs text-muted-foreground">({count})</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* VERBEN Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setOpenDropdown(openDropdown === "verbs" ? null : "verbs")}
+                  className={`
+                    inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium
+                    transition-all duration-200
+                    ${verbCategoryIds.includes(selectedCategory)
+                      ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md" 
+                      : "border border-border bg-muted/30 text-foreground hover:bg-muted/50"
+                    }
+                  `}
+                >
+                  <span>⚡</span>
+                  <span>Verben</span>
+                  <span className="text-xs opacity-70">({countVerbVocab()})</span>
+                  <span className={`transition-transform ${openDropdown === "verbs" ? "rotate-180" : ""}`}>▼</span>
+                </button>
+                
+                {/* Verben Dropdown Menu */}
+                {openDropdown === "verbs" && (
+                  <div className="absolute top-full left-0 mt-1 w-56 bg-background border border-border rounded-xl shadow-xl z-50 overflow-hidden">
+                    {verbCategories.map(cat => {
+                      const Icon = cat.icon;
+                      const count = getVocabByCategory(cat.id).length;
+                      const isSelected = selectedCategory === cat.id;
+                      return (
+                        <button
+                          key={cat.id}
+                          onClick={() => { setSelectedCategory(cat.id); setOpenDropdown(null); }}
+                          className={`w-full px-3 py-2 flex items-center gap-2 text-sm transition-colors ${
+                            isSelected ? "bg-amber-500/20 text-amber-600" : "hover:bg-muted/50"
+                          }`}
+                        >
+                          <Icon className="h-4 w-4" />
+                          <span className="flex-1 text-left">{cat.name}</span>
+                          <span className="text-xs text-muted-foreground">({count})</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* PARTIKEL Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setOpenDropdown(openDropdown === "particles" ? null : "particles")}
+                  className={`
+                    inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium
+                    transition-all duration-200
+                    ${particleCategoryIds.includes(selectedCategory)
+                      ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-md" 
+                      : "border border-border bg-muted/30 text-foreground hover:bg-muted/50"
+                    }
+                  `}
+                >
+                  <span>🔗</span>
+                  <span>Partikel</span>
+                  <span className="text-xs opacity-70">({countParticleVocab()})</span>
+                  <span className={`transition-transform ${openDropdown === "particles" ? "rotate-180" : ""}`}>▼</span>
+                </button>
+                
+                {/* Partikel Dropdown Menu */}
+                {openDropdown === "particles" && (
+                  <div className="absolute top-full left-0 mt-1 w-56 bg-background border border-border rounded-xl shadow-xl z-50 overflow-hidden">
+                    {particleCategories.map(cat => {
+                      const Icon = cat.icon;
+                      const count = getVocabByCategory(cat.id).length;
+                      const isSelected = selectedCategory === cat.id;
+                      return (
+                        <button
+                          key={cat.id}
+                          onClick={() => { setSelectedCategory(cat.id); setOpenDropdown(null); }}
+                          className={`w-full px-3 py-2 flex items-center gap-2 text-sm transition-colors ${
+                            isSelected ? "bg-violet-500/20 text-violet-600" : "hover:bg-muted/50"
+                          }`}
+                        >
+                          <Icon className="h-4 w-4" />
+                          <span className="flex-1 text-left">{cat.name}</span>
+                          <span className="text-xs text-muted-foreground">({count})</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
             </div>
 
-            {/* Gruppen in kompakter Ansicht */}
-            <div className="space-y-3">
-              
-              {/* NOMEN */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-sky-500/10 text-sky-600 text-xs font-semibold">
-                  📦 Nomen
-                </span>
-                {nounCategories.map(cat => renderCategoryChip(cat, "nouns"))}
-              </div>
-
-              {/* VERBEN */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-amber-500/10 text-amber-600 text-xs font-semibold">
-                  ⚡ Verben
-                </span>
-                {verbCategories.map(cat => renderCategoryChip(cat, "verbs"))}
-              </div>
-
-              {/* PARTIKEL */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-violet-500/10 text-violet-600 text-xs font-semibold">
-                  🔗 Partikel
-                </span>
-                {particleCategories.map(cat => renderCategoryChip(cat, "particles"))}
-              </div>
-
-            </div>
+            {/* Klick außerhalb schließt Dropdown */}
+            {openDropdown && (
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => setOpenDropdown(null)}
+              />
+            )}
           </div>
 
           {/* Modus-Tabs */}
