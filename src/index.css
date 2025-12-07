@@ -148,7 +148,21 @@
 
   .table-container th,
   .table-container td {
-    @apply px-4 py-3 text-right border-b border-border;
+    @apply px-4 py-3 border-b border-border;
+  }
+
+  .table-container th {
+    @apply text-left;
+  }
+
+  .table-container td {
+    @apply text-left;
+  }
+
+  .table-container td.arabic,
+  .table-container th.arabic {
+    @apply text-right;
+    direction: rtl;
   }
 
   .table-container th {

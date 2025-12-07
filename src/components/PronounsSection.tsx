@@ -67,7 +67,7 @@ const PronounsSection = () => {
     <section id="pronouns" className="py-16 md:py-24">
       <div className="container">
         <div className="mb-12 text-center">
-          <p className="mb-2 font-arabic-display text-turquoise">الضمائر</p>
+          <p className="mb-2 font-arabic-display text-turquoise" dir="rtl">الضمائر</p>
           <h2 className="mb-4 text-3xl font-bold text-primary md:text-4xl">
             Pronomen
           </h2>
@@ -79,34 +79,34 @@ const PronounsSection = () => {
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Separate Pronouns */}
           <div className="glass-card overflow-hidden">
-            <div className="border-b border-border bg-gradient-to-l from-turquoise/10 to-turquoise-light/5 p-6">
-              <p className="font-arabic-display text-sm text-turquoise">ضمائر منفصلة</p>
-              <h3 className="text-xl font-bold text-foreground">
+            <div className="border-b border-border bg-gradient-to-r from-turquoise/10 to-turquoise-light/5 p-6">
+              <p className="font-arabic-display text-sm text-turquoise text-right" dir="rtl">ضمائر منفصلة</p>
+              <h3 className="text-xl font-bold text-foreground text-left">
                 Getrennte Pronomen
               </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground text-left">
                 Stehen alleine als eigenständige Wörter
               </p>
             </div>
 
             <div className="p-6">
-              <div className="table-container">
+              <div className="table-container" dir="ltr">
                 <table>
                   <thead>
                     <tr>
-                      <th>Person</th>
-                      <th>Arabisch</th>
-                      <th>Deutsch</th>
+                      <th className="text-left">Person</th>
+                      <th className="text-right">Arabisch</th>
+                      <th className="text-left">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {separatePronouns.map((pronoun) => (
                       <tr key={pronoun.arabic}>
-                        <td className="text-sm text-muted-foreground">{pronoun.person}</td>
-                        <td className="font-arabic-display text-lg font-semibold text-foreground">
+                        <td className="text-sm text-muted-foreground text-left">{pronoun.person}</td>
+                        <td className="font-arabic-display text-lg font-semibold text-foreground text-right" dir="rtl">
                           {pronoun.arabic}
                         </td>
-                        <td className="text-muted-foreground">
+                        <td className="text-muted-foreground text-left">
                           {pronoun.german}
                         </td>
                       </tr>
@@ -118,7 +118,7 @@ const PronounsSection = () => {
               <div className="mt-6 rounded-xl bg-turquoise/10 p-4">
                 <p className="mb-1 text-center text-sm text-muted-foreground">Beispiel:</p>
                 <p className="text-center">
-                  <span className="font-arabic-display text-lg font-semibold text-foreground">
+                  <span className="font-arabic-display text-lg font-semibold text-foreground" dir="rtl">
                     أنا أكتب
                   </span>
                   <span className="mx-3 text-muted-foreground">→</span>
@@ -132,40 +132,40 @@ const PronounsSection = () => {
 
           {/* Attached Pronouns */}
           <div className="glass-card overflow-hidden">
-            <div className="border-b border-border bg-gradient-to-l from-violet-500/10 to-purple-500/5 p-6">
-              <p className="font-arabic-display text-sm text-violet-500">ضمائر متصلة</p>
-              <h3 className="text-xl font-bold text-foreground">
+            <div className="border-b border-border bg-gradient-to-r from-violet-500/10 to-purple-500/5 p-6">
+              <p className="font-arabic-display text-sm text-violet-500 text-right" dir="rtl">ضمائر متصلة</p>
+              <h3 className="text-xl font-bold text-foreground text-left">
                 Verbundene Pronomen
               </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground text-left">
                 Werden an Verben oder Nomen angehängt
               </p>
             </div>
 
             <div className="p-6">
-              <div className="table-container">
+              <div className="table-container" dir="ltr">
                 <table>
                   <thead>
                     <tr>
-                      <th>Suffix</th>
-                      <th>Am Verb</th>
-                      <th>Am Nomen</th>
-                      <th>Deutsch</th>
+                      <th className="text-right">Suffix</th>
+                      <th className="text-right">Am Verb</th>
+                      <th className="text-right">Am Nomen</th>
+                      <th className="text-left">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {attachedPronouns.map((pronoun) => (
                       <tr key={pronoun.suffix}>
-                        <td className="font-arabic-display text-lg font-semibold text-turquoise">
+                        <td className="font-arabic-display text-lg font-semibold text-turquoise text-right" dir="rtl">
                           {pronoun.suffix}
                         </td>
-                        <td className="font-arabic-display text-foreground">
+                        <td className="font-arabic-display text-foreground text-right" dir="rtl">
                           {pronoun.verbExample}
                         </td>
-                        <td className="font-arabic-display text-foreground">
+                        <td className="font-arabic-display text-foreground text-right" dir="rtl">
                           {pronoun.nounExample}
                         </td>
-                        <td className="text-sm text-muted-foreground">
+                        <td className="text-sm text-muted-foreground text-left">
                           {pronoun.german}
                         </td>
                       </tr>

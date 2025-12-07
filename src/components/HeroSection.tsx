@@ -40,22 +40,22 @@ const HeroSection = () => {
       <div className="container">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Right side - Content */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center" dir="ltr">
             <div className="animate-fade-up">
               <span className="chip mb-6">Neue Lektion</span>
             </div>
 
-            <h1 className="animate-fade-up animation-delay-100 mb-6 font-arabic-display text-4xl font-bold leading-tight text-primary md:text-5xl lg:text-6xl">
+            <h1 className="animate-fade-up animation-delay-100 mb-6 font-arabic-display text-4xl font-bold leading-tight text-primary md:text-5xl lg:text-6xl text-left">
               Arabische Verben & Pronomen lernen
             </h1>
 
-            <p className="animate-fade-up animation-delay-200 mb-4 text-lg leading-relaxed text-muted-foreground md:text-xl">
+            <p className="animate-fade-up animation-delay-200 mb-4 text-lg leading-relaxed text-muted-foreground md:text-xl text-left">
               Eine verständliche Lerneinheit der Warizmy Akademie, die dir die 
               arabischen Verbarten, Konjugationstabellen und Pronomen erklärt – 
               mit deutschen Übersetzungen.
             </p>
 
-            <p className="animate-fade-up animation-delay-300 mb-4 font-arabic-sans text-base text-muted-foreground/80">
+            <p className="animate-fade-up animation-delay-300 mb-4 font-arabic-sans text-base text-muted-foreground/80 text-right" dir="rtl">
               درس مبسط يشرح أنواع الأفعال وجداول التصريف والضمائر بالعربية مع ترجمة ألمانية.
             </p>
 
@@ -88,13 +88,13 @@ const HeroSection = () => {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise/20 to-turquoise-light/20">
                   <card.icon className="h-6 w-6 text-turquoise" />
                 </div>
-                <p className="mb-1 font-arabic-display text-sm text-turquoise">
+                <p className="mb-1 font-arabic-display text-sm text-turquoise text-right" dir="rtl">
                   {card.titleAr}
                 </p>
-                <h3 className="mb-2 text-lg font-bold text-foreground">
+                <h3 className="mb-2 text-lg font-bold text-foreground text-left" dir="ltr">
                   {card.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">{card.description}</p>
+                <p className="text-sm text-muted-foreground text-left" dir="ltr">{card.description}</p>
               </div>
             ))}
           </div>
