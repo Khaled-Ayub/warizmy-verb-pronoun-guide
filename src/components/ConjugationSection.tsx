@@ -66,9 +66,12 @@ const additionalVerbs = [
 
 /**
  * Komponente zur Darstellung eines konjugierten Verbs mit farblicher Hervorhebung
- * - Präfix: Orange (text-amber-500)
- * - Wortstamm: Normal (text-foreground)
- * - Suffix: Grün (text-emerald-500)
+ * - Präfix: Orange (text-amber-500) - am Anfang des Wortes (rechts in RTL)
+ * - Wortstamm: Normal (text-foreground) - in der Mitte
+ * - Suffix: Grün (text-emerald-500) - am Ende des Wortes (links in RTL)
+ * 
+ * WICHTIG: In RTL erscheint das ERSTE HTML-Element RECHTS,
+ * daher: Präfix → Stamm → Suffix (in HTML-Reihenfolge)
  */
 const HighlightedVerb = ({ 
   prefix, 
@@ -81,15 +84,15 @@ const HighlightedVerb = ({
 }) => {
   return (
     <span dir="rtl" className="font-arabic-sans text-lg">
-      {/* Suffix wird zuerst angezeigt (RTL - rechts nach links) */}
-      {suffix && (
-        <span className="text-emerald-500 font-bold">{suffix}</span>
-      )}
-      {/* Wortstamm in normaler Farbe */}
-      <span className="text-foreground">{root}</span>
-      {/* Präfix am Ende (RTL - erscheint links) */}
+      {/* Präfix am Anfang (erscheint rechts in RTL) */}
       {prefix && (
         <span className="text-amber-500 font-bold">{prefix}</span>
+      )}
+      {/* Wortstamm in der Mitte */}
+      <span className="text-foreground">{root}</span>
+      {/* Suffix am Ende (erscheint links in RTL) */}
+      {suffix && (
+        <span className="text-emerald-500 font-bold">{suffix}</span>
       )}
     </span>
   );

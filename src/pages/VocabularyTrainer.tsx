@@ -1016,19 +1016,128 @@ const VocabList = ({ categoryId }: { categoryId: string }) => {
 };
 
 // ============================================
+// KATEGORIEN-GRUPPIERUNG
+// ============================================
+// Nomen-Kategorien (Substantive)
+const nounCategoryIds = ["family", "social", "adjectives", "school", "colors", "astronomy", "environment", "time"];
+// Verb-Kategorien
+const verbCategoryIds = ["verbs"];
+// Partikel-Kategorien
+const particleCategoryIds = ["particles", "antonyms", "grammar"];
+
+// ============================================
 // HAUPTKOMPONENTE
 // ============================================
 const VocabularyTrainer = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [mode, setMode] = useState<"learn" | "quiz" | "list">("learn");
 
-  const categories = [
-    { id: "all", name: "Alle Vokabeln", nameAr: "جميع المفردات", icon: BookOpen },
-    ...vocabulary.categories.map(cat => ({
-      ...cat,
-      icon: iconMap[cat.icon] || BookOpen
-    }))
-  ];
+  // Alle Kategorien mit Icons
+  const allCategories = vocabulary.categories.map(cat => ({
+    ...cat,
+    icon: iconMap[cat.icon] || BookOpen
+  }));
+
+  // Gruppierte Kategorien
+  const nounCategories = allCategories.filter(cat => nounCategoryIds.includes(cat.id));
+  const verbCategories = allCategories.filter(cat => verbCategoryIds.includes(cat.id));
+  const particleCategories = allCategories.filter(cat => particleCategoryIds.includes(cat.id));
+
+  // Zähle Vokabeln pro Gruppe
+  const countNounVocab = () => nounCategoryIds.reduce((sum, id) => sum + getVocabByCategory(id).length, 0);
+  const countVerbVocab = () => verbCategoryIds.reduce((sum, id) => sum + getVocabByCategory(id).length, 0);
+  const countParticleVocab = () => particleCategoryIds.reduce((sum, id) => sum + getVocabByCategory(id).length, 0);
+
+  // Stil-Konfigurationen für jede Gruppe
+  const groupStyles = {
+    nouns: {
+      borderSelected: "border-sky-500",
+      bgSelected: "bg-gradient-to-br from-sky-500/20 to-sky-500/5",
+      iconBgSelected: "bg-gradient-to-br from-sky-500 to-blue-600",
+      badgeBg: "bg-sky-500/20",
+      badgeText: "text-sky-600",
+      dot: "bg-sky-500"
+    },
+    verbs: {
+      borderSelected: "border-amber-500",
+      bgSelected: "bg-gradient-to-br from-amber-500/20 to-amber-500/5",
+      iconBgSelected: "bg-gradient-to-br from-amber-500 to-orange-600",
+      badgeBg: "bg-amber-500/20",
+      badgeText: "text-amber-600",
+      dot: "bg-amber-500"
+    },
+    particles: {
+      borderSelected: "border-violet-500",
+      bgSelected: "bg-gradient-to-br from-violet-500/20 to-violet-500/5",
+      iconBgSelected: "bg-gradient-to-br from-violet-500 to-purple-600",
+      badgeBg: "bg-violet-500/20",
+      badgeText: "text-violet-600",
+      dot: "bg-violet-500"
+    }
+  };
+
+  // Render-Funktion für Kategorie-Karten (schönes Design)
+  const renderCategoryCard = (
+    cat: { id: string; name: string; nameAr: string; icon: React.ElementType }, 
+    groupType: "nouns" | "verbs" | "particles"
+  ) => {
+    const Icon = cat.icon;
+    const count = getVocabByCategory(cat.id).length;
+    const isSelected = selectedCategory === cat.id;
+    const styles = groupStyles[groupType];
+    
+    return (
+      <button
+        key={cat.id}
+        onClick={() => setSelectedCategory(cat.id)}
+        className={`
+          group relative p-4 rounded-2xl border-2 transition-all duration-300 text-left
+          ${isSelected 
+            ? `${styles.borderSelected} ${styles.bgSelected} shadow-lg` 
+            : "border-border/50 bg-muted/30 hover:border-border hover:bg-muted/50 hover:shadow-md"
+          }
+        `}
+      >
+        {/* Icon */}
+        <div className={`
+          mb-3 h-10 w-10 rounded-xl flex items-center justify-center transition-all
+          ${isSelected 
+            ? `${styles.iconBgSelected} text-white shadow-md` 
+            : "bg-muted group-hover:bg-muted/80"
+          }
+        `}>
+          <Icon className={`h-5 w-5 ${isSelected ? "text-white" : "text-muted-foreground"}`} />
+        </div>
+        
+        {/* Name */}
+        <h4 className={`font-semibold text-sm mb-0.5 ${isSelected ? "text-foreground" : "text-foreground/80"}`}>
+          {cat.name}
+        </h4>
+        
+        {/* Arabischer Name */}
+        <p className="font-arabic-display text-xs text-muted-foreground mb-2" dir="rtl">
+          {cat.nameAr}
+        </p>
+        
+        {/* Anzahl */}
+        <div className={`
+          inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium
+          ${isSelected 
+            ? `${styles.badgeBg} ${styles.badgeText}` 
+            : "bg-muted text-muted-foreground"
+          }
+        `}>
+          <span>{count}</span>
+          <span>Wörter</span>
+        </div>
+        
+        {/* Ausgewählt-Indikator */}
+        {isSelected && (
+          <div className={`absolute top-2 right-2 h-2 w-2 rounded-full ${styles.dot} animate-pulse`} />
+        )}
+      </button>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -1046,28 +1155,102 @@ const VocabularyTrainer = () => {
             </p>
           </div>
 
-          {/* Kategorie-Auswahl */}
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-foreground mb-4 text-center">Kategorie wählen</h2>
-            <div className="flex flex-wrap justify-center gap-2">
-              {categories.map(cat => {
-                const Icon = cat.icon;
-                const count = cat.id === "all" ? getAllVocab().length : getVocabByCategory(cat.id).length;
-                return (
-                  <Button
-                    key={cat.id}
-                    variant={selectedCategory === cat.id ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className="rounded-full gap-2"
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{cat.name}</span>
-                    <span className="text-xs opacity-70">({count})</span>
-                  </Button>
-                );
-              })}
+          {/* Kategorie-Auswahl - Neues Design */}
+          <div className="mb-10 space-y-8">
+            
+            {/* Alle Vokabeln - Hero Card */}
+            <button
+              onClick={() => setSelectedCategory("all")}
+              className={`
+                w-full p-6 rounded-3xl border-2 transition-all duration-300 text-center
+                ${selectedCategory === "all" 
+                  ? "border-turquoise bg-gradient-to-r from-turquoise/20 via-turquoise/10 to-primary/10 shadow-xl shadow-turquoise/10" 
+                  : "border-border/50 bg-gradient-to-r from-muted/50 to-muted/30 hover:border-turquoise/50 hover:shadow-lg"
+                }
+              `}
+            >
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className={`
+                  h-16 w-16 rounded-2xl flex items-center justify-center
+                  ${selectedCategory === "all" 
+                    ? "bg-gradient-to-br from-turquoise to-turquoise-light shadow-lg" 
+                    : "bg-muted"
+                  }
+                `}>
+                  <BookOpen className={`h-8 w-8 ${selectedCategory === "all" ? "text-night-blue" : "text-muted-foreground"}`} />
+                </div>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-1">
+                    Alle Vokabeln
+                  </h3>
+                  <p className="font-arabic-display text-turquoise" dir="rtl">جميع المفردات</p>
+                  <p className="text-muted-foreground mt-1">
+                    <span className="font-semibold text-turquoise">{getAllVocab().length}</span> Wörter insgesamt
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            {/* ========================================
+                NOMEN-GRUPPE
+                ======================================== */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-md">
+                  <span className="text-lg">📦</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">Nomen</h3>
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-arabic-display" dir="rtl">الأسماء</span> · {countNounVocab()} Wörter
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {nounCategories.map(cat => renderCategoryCard(cat, "nouns"))}
+              </div>
             </div>
+
+            {/* ========================================
+                VERBEN-GRUPPE
+                ======================================== */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-md">
+                  <span className="text-lg">⚡</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">Verben</h3>
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-arabic-display" dir="rtl">الأفعال</span> · {countVerbVocab()} Wörter
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {verbCategories.map(cat => renderCategoryCard(cat, "verbs"))}
+              </div>
+            </div>
+
+            {/* ========================================
+                PARTIKEL-GRUPPE
+                ======================================== */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md">
+                  <span className="text-lg">🔗</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">Partikel</h3>
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-arabic-display" dir="rtl">الحروف</span> · {countParticleVocab()} Wörter
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {particleCategories.map(cat => renderCategoryCard(cat, "particles"))}
+              </div>
+            </div>
+
           </div>
 
           {/* Modus-Tabs */}
