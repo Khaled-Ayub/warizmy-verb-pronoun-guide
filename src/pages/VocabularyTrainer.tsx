@@ -25,7 +25,9 @@ import {
   Eye,
   EyeOff,
   Play,
-  UserPlus
+  UserPlus,
+  Search,
+  X
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -1031,12 +1033,35 @@ const particleCategoryIds = ["particles", "antonyms", "grammar"];
 const VocabularyTrainer = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [mode, setMode] = useState<"learn" | "quiz" | "list">("learn");
+  // Suchbegriff für die Schnellsuche
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  // Suchergebnisse anzeigen
+  const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
   // Alle Kategorien mit Icons
   const allCategories = vocabulary.categories.map(cat => ({
     ...cat,
     icon: iconMap[cat.icon] || BookOpen
   }));
+
+  // Suchfunktion - durchsucht alle Vokabeln
+  const searchVocab = (term: string): VocabItem[] => {
+    if (!term.trim()) return [];
+    const lowerTerm = term.toLowerCase();
+    const allVocab = getAllVocab();
+    return allVocab.filter(item => 
+      item.arabic.includes(term) || 
+      item.german.toLowerCase().includes(lowerTerm)
+    ).slice(0, 10); // Maximal 10 Ergebnisse
+  };
+
+  const searchResults = searchTerm ? searchVocab(searchTerm) : [];
+
+  // Suche zurücksetzen
+  const clearSearch = () => {
+    setSearchTerm("");
+    setShowSearchResults(false);
+  };
 
   // Gruppierte Kategorien
   const nounCategories = allCategories.filter(cat => nounCategoryIds.includes(cat.id));
@@ -1076,8 +1101,8 @@ const VocabularyTrainer = () => {
     }
   };
 
-  // Render-Funktion für Kategorie-Karten (schönes Design)
-  const renderCategoryCard = (
+  // Render-Funktion für kompakte Kategorie-Chips
+  const renderCategoryChip = (
     cat: { id: string; name: string; nameAr: string; icon: React.ElementType }, 
     groupType: "nouns" | "verbs" | "particles"
   ) => {
@@ -1091,50 +1116,17 @@ const VocabularyTrainer = () => {
         key={cat.id}
         onClick={() => setSelectedCategory(cat.id)}
         className={`
-          group relative p-4 rounded-2xl border-2 transition-all duration-300 text-left
+          inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+          transition-all duration-200
           ${isSelected 
-            ? `${styles.borderSelected} ${styles.bgSelected} shadow-lg` 
-            : "border-border/50 bg-muted/30 hover:border-border hover:bg-muted/50 hover:shadow-md"
+            ? `${styles.borderSelected} ${styles.bgSelected} border shadow-sm` 
+            : "border border-border/50 bg-muted/30 hover:bg-muted/50 hover:border-border"
           }
         `}
       >
-        {/* Icon */}
-        <div className={`
-          mb-3 h-10 w-10 rounded-xl flex items-center justify-center transition-all
-          ${isSelected 
-            ? `${styles.iconBgSelected} text-white shadow-md` 
-            : "bg-muted group-hover:bg-muted/80"
-          }
-        `}>
-          <Icon className={`h-5 w-5 ${isSelected ? "text-white" : "text-muted-foreground"}`} />
-        </div>
-        
-        {/* Name */}
-        <h4 className={`font-semibold text-sm mb-0.5 ${isSelected ? "text-foreground" : "text-foreground/80"}`}>
-          {cat.name}
-        </h4>
-        
-        {/* Arabischer Name */}
-        <p className="font-arabic-display text-xs text-muted-foreground mb-2" dir="rtl">
-          {cat.nameAr}
-        </p>
-        
-        {/* Anzahl */}
-        <div className={`
-          inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium
-          ${isSelected 
-            ? `${styles.badgeBg} ${styles.badgeText}` 
-            : "bg-muted text-muted-foreground"
-          }
-        `}>
-          <span>{count}</span>
-          <span>Wörter</span>
-        </div>
-        
-        {/* Ausgewählt-Indikator */}
-        {isSelected && (
-          <div className={`absolute top-2 right-2 h-2 w-2 rounded-full ${styles.dot} animate-pulse`} />
-        )}
+        <Icon className={`h-3.5 w-3.5 ${isSelected ? styles.badgeText : "text-muted-foreground"}`} />
+        <span className={isSelected ? "text-foreground" : "text-foreground/80"}>{cat.name}</span>
+        <span className={`text-[10px] ${isSelected ? styles.badgeText : "text-muted-foreground"}`}>({count})</span>
       </button>
     );
   };
@@ -1145,7 +1137,7 @@ const VocabularyTrainer = () => {
       <main className="py-8 sm:py-16">
         <div className="container">
           {/* Überschrift */}
-          <div className="mb-8 sm:mb-12 text-center">
+          <div className="mb-6 sm:mb-8 text-center">
             <p className="mb-2 font-arabic-display text-turquoise" dir="rtl">دَفْتَرُ المُفْرَداتِ</p>
             <h1 className="mb-4 text-3xl sm:text-4xl font-bold text-primary">
               Vokabelheft
@@ -1155,102 +1147,148 @@ const VocabularyTrainer = () => {
             </p>
           </div>
 
-          {/* Kategorie-Auswahl - Neues Design */}
-          <div className="mb-10 space-y-8">
+          {/* ========================================
+              SUCHLEISTE
+              ======================================== */}
+          <div className="mb-6 max-w-xl mx-auto">
+            <div className="relative">
+              {/* Sucheingabe */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="🔍 Vokabel suchen... (Arabisch oder Deutsch)"
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setShowSearchResults(e.target.value.length > 0);
+                  }}
+                  onFocus={() => searchTerm && setShowSearchResults(true)}
+                  className="w-full pl-10 pr-10 py-3 rounded-2xl border border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-turquoise focus:border-turquoise transition-all"
+                />
+                {/* Löschen-Button */}
+                {searchTerm && (
+                  <button
+                    onClick={clearSearch}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                  >
+                    <X className="h-3 w-3 text-muted-foreground" />
+                  </button>
+                )}
+              </div>
+
+              {/* Suchergebnisse Dropdown */}
+              {showSearchResults && searchResults.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border rounded-2xl shadow-xl z-50 overflow-hidden">
+                  <div className="p-2 border-b border-border bg-muted/30">
+                    <p className="text-xs text-muted-foreground">
+                      {searchResults.length} Ergebnis{searchResults.length !== 1 ? "se" : ""} gefunden
+                    </p>
+                  </div>
+                  <div className="max-h-64 overflow-y-auto">
+                    {searchResults.map((item, index) => (
+                      <button
+                        key={`${item.id}-${index}`}
+                        onClick={() => {
+                          // Zur Liste wechseln und Suche übernehmen
+                          setMode("list");
+                          setSelectedCategory("all");
+                          setShowSearchResults(false);
+                        }}
+                        className="w-full px-4 py-3 flex items-center justify-between hover:bg-muted/50 transition-colors border-b border-border/30 last:border-0"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">{getVocabEmoji(item.german, item.arabic)}</span>
+                          <div className="text-left">
+                            <p className="font-arabic-display text-base text-turquoise" dir="rtl">
+                              {item.arabic}
+                            </p>
+                            <p className="text-sm text-foreground">{item.german}</p>
+                          </div>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                    ))}
+                  </div>
+                  {searchResults.length === 10 && (
+                    <div className="p-2 border-t border-border bg-muted/30 text-center">
+                      <p className="text-xs text-muted-foreground">
+                        Weitere Ergebnisse in der Liste ansehen
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Keine Ergebnisse */}
+              {showSearchResults && searchTerm && searchResults.length === 0 && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border rounded-2xl shadow-xl z-50 p-4 text-center">
+                  <p className="text-muted-foreground">
+                    😕 Keine Vokabeln für "<span className="font-semibold">{searchTerm}</span>" gefunden
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Klick außerhalb schließt die Ergebnisse */}
+            {showSearchResults && (
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => setShowSearchResults(false)}
+              />
+            )}
+          </div>
+
+          {/* Kategorie-Auswahl - Kompaktes Design */}
+          <div className="mb-8 space-y-4">
             
-            {/* Alle Vokabeln - Hero Card */}
-            <button
-              onClick={() => setSelectedCategory("all")}
-              className={`
-                w-full p-6 rounded-3xl border-2 transition-all duration-300 text-center
-                ${selectedCategory === "all" 
-                  ? "border-turquoise bg-gradient-to-r from-turquoise/20 via-turquoise/10 to-primary/10 shadow-xl shadow-turquoise/10" 
-                  : "border-border/50 bg-gradient-to-r from-muted/50 to-muted/30 hover:border-turquoise/50 hover:shadow-lg"
-                }
-              `}
-            >
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <div className={`
-                  h-16 w-16 rounded-2xl flex items-center justify-center
+            {/* Alle Vokabeln - Kompakter Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={() => setSelectedCategory("all")}
+                className={`
+                  inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
+                  transition-all duration-200
                   ${selectedCategory === "all" 
-                    ? "bg-gradient-to-br from-turquoise to-turquoise-light shadow-lg" 
-                    : "bg-muted"
+                    ? "bg-gradient-to-r from-turquoise to-turquoise-light text-night-blue shadow-md" 
+                    : "border border-border bg-muted/30 text-foreground hover:bg-muted/50"
                   }
-                `}>
-                  <BookOpen className={`h-8 w-8 ${selectedCategory === "all" ? "text-night-blue" : "text-muted-foreground"}`} />
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-1">
-                    Alle Vokabeln
-                  </h3>
-                  <p className="font-arabic-display text-turquoise" dir="rtl">جميع المفردات</p>
-                  <p className="text-muted-foreground mt-1">
-                    <span className="font-semibold text-turquoise">{getAllVocab().length}</span> Wörter insgesamt
-                  </p>
-                </div>
-              </div>
-            </button>
-
-            {/* ========================================
-                NOMEN-GRUPPE
-                ======================================== */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-md">
-                  <span className="text-lg">📦</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground">Nomen</h3>
-                  <p className="text-xs text-muted-foreground">
-                    <span className="font-arabic-display" dir="rtl">الأسماء</span> · {countNounVocab()} Wörter
-                  </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                {nounCategories.map(cat => renderCategoryCard(cat, "nouns"))}
-              </div>
+                `}
+              >
+                <BookOpen className="h-4 w-4" />
+                <span>Alle Vokabeln</span>
+                <span className="text-xs opacity-80">({getAllVocab().length})</span>
+              </button>
             </div>
 
-            {/* ========================================
-                VERBEN-GRUPPE
-                ======================================== */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-md">
-                  <span className="text-lg">⚡</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground">Verben</h3>
-                  <p className="text-xs text-muted-foreground">
-                    <span className="font-arabic-display" dir="rtl">الأفعال</span> · {countVerbVocab()} Wörter
-                  </p>
-                </div>
+            {/* Gruppen in kompakter Ansicht */}
+            <div className="space-y-3">
+              
+              {/* NOMEN */}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-sky-500/10 text-sky-600 text-xs font-semibold">
+                  📦 Nomen
+                </span>
+                {nounCategories.map(cat => renderCategoryChip(cat, "nouns"))}
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                {verbCategories.map(cat => renderCategoryCard(cat, "verbs"))}
-              </div>
-            </div>
 
-            {/* ========================================
-                PARTIKEL-GRUPPE
-                ======================================== */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md">
-                  <span className="text-lg">🔗</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground">Partikel</h3>
-                  <p className="text-xs text-muted-foreground">
-                    <span className="font-arabic-display" dir="rtl">الحروف</span> · {countParticleVocab()} Wörter
-                  </p>
-                </div>
+              {/* VERBEN */}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-amber-500/10 text-amber-600 text-xs font-semibold">
+                  ⚡ Verben
+                </span>
+                {verbCategories.map(cat => renderCategoryChip(cat, "verbs"))}
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                {particleCategories.map(cat => renderCategoryCard(cat, "particles"))}
-              </div>
-            </div>
 
+              {/* PARTIKEL */}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-violet-500/10 text-violet-600 text-xs font-semibold">
+                  🔗 Partikel
+                </span>
+                {particleCategories.map(cat => renderCategoryChip(cat, "particles"))}
+              </div>
+
+            </div>
           </div>
 
           {/* Modus-Tabs */}
