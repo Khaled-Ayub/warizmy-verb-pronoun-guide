@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        "arabic-display": ["var(--font-arabic-display)", "Amiri", "serif"],
+        "arabic-display": ["var(--font-arabic-display)", "Readex Pro", "sans-serif"],
         "arabic-sans": ["var(--font-arabic-sans)", "Readex Pro", "sans-serif"],
         "arabic": ["Readex Pro", "sans-serif"],
       },
