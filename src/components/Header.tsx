@@ -51,26 +51,36 @@ const Header = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation - nur ab md sichtbar */}
+          {/* Desktop Navigation - nur ab md sichtbar, zweisprachig */}
           <nav className="hidden md:block" dir="rtl">
-            <ul className="flex items-center gap-2">
+            <ul className="flex items-center gap-1 lg:gap-2">
               {navItems.map((item) => {
                 const active = isActive(item.href);
                 const isExternal = item.href.startsWith("#") || item.href.startsWith("/#");
                 
+                // Gemeinsame Klassen für beide Linktypen
+                const linkClasses = `flex flex-col items-center gap-0.5 rounded-xl px-3 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-all duration-200 ${
+                  active
+                    ? "bg-turquoise/10 text-turquoise"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`;
+                
+                // Inhalt für beide Linktypen
+                const linkContent = (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <item.icon className="h-4 w-4" />
+                      <span className="font-arabic-display">{item.label}</span>
+                    </div>
+                    <span className="text-[10px] lg:text-xs opacity-70" dir="ltr">{item.labelDe}</span>
+                  </>
+                );
+                
                 if (isExternal) {
                   return (
                     <li key={item.label}>
-                      <a
-                        href={item.href}
-                        className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                          active
-                            ? "bg-turquoise/10 text-turquoise"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                        }`}
-                      >
-                        <item.icon className="h-4 w-4" />
-                        <span className="font-arabic">{item.label}</span>
+                      <a href={item.href} className={linkClasses}>
+                        {linkContent}
                       </a>
                     </li>
                   );
@@ -78,16 +88,8 @@ const Header = () => {
 
                 return (
                   <li key={item.label}>
-                    <Link
-                      to={item.href}
-                      className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                        active
-                          ? "bg-turquoise/10 text-turquoise"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                      }`}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      <span className="font-arabic">{item.label}</span>
+                    <Link to={item.href} className={linkClasses}>
+                      {linkContent}
                     </Link>
                   </li>
                 );
