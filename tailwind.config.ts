@@ -15,7 +15,8 @@ export default {
     extend: {
       fontFamily: {
         "arabic-display": ["var(--font-arabic-display)", "Amiri", "serif"],
-        "arabic-sans": ["var(--font-arabic-sans)", "Noto Sans Arabic", "sans-serif"],
+        "arabic-sans": ["var(--font-arabic-sans)", "Readex Pro", "sans-serif"],
+        "arabic": ["Readex Pro", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
