@@ -57,7 +57,7 @@ const ConjugationSection = () => {
 
         <div className="glass-card overflow-hidden p-6 md:p-8">
           <Tabs defaultValue="past" className="w-full">
-            <TabsList className="mb-8 grid w-full grid-cols-3 gap-2 bg-muted/50 p-2">
+            <TabsList className="mb-8 grid w-full grid-cols-3 gap-2 bg-muted/50 p-2" dir="ltr">
               <TabsTrigger
                 value="past"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white"
@@ -189,24 +189,24 @@ const ConjugationSection = () => {
             {additionalVerbs.map((verb) => (
               <div key={verb.past} className="glass-card-hover p-5 text-center">
                 <p className="mb-3 font-medium text-foreground">{verb.german}</p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="w-20 text-left text-xs text-muted-foreground">Vergangen.</span>
+                <div className="flex items-center justify-center gap-4" dir="ltr">
+                  <div className="text-center">
                     <span className="font-arabic-display text-lg font-bold text-foreground" dir="rtl">
                       {verb.past}
                     </span>
+                    <p className="text-xs text-muted-foreground">Vergangen.</p>
                   </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="w-20 text-left text-xs text-muted-foreground">Gegenwart</span>
+                  <div className="text-center">
                     <span className="font-arabic-display text-lg text-turquoise" dir="rtl">
                       {verb.present}
                     </span>
+                    <p className="text-xs text-muted-foreground">Gegenwart</p>
                   </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="w-20 text-left text-xs text-muted-foreground">Imperativ</span>
+                  <div className="text-center">
                     <span className="font-arabic-display text-lg text-violet-500" dir="rtl">
                       {verb.imperative}
                     </span>
+                    <p className="text-xs text-muted-foreground">Imperativ</p>
                   </div>
                 </div>
               </div>

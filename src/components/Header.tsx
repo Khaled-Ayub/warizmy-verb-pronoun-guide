@@ -17,8 +17,8 @@ const Header = () => {
           <div className="flex items-center gap-3">
             <img src={logoBlue} alt="Warizmy Akademie Logo" className="h-12 w-12" />
             <div className="flex flex-col">
-              <span className="font-arabic-display text-lg font-bold text-primary">
-                أكاديمية واريزمي
+              <span className="font-arabic-display text-lg font-bold text-primary" dir="rtl">
+                أكاديمية الخوارزمي
               </span>
               <span className="text-xs text-muted-foreground">Warizmy Akademie</span>
             </div>
