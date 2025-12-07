@@ -83,21 +83,21 @@ const ConjugationSection = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th className="text-right">Pronomen</th>
-                      <th className="text-right">Verb</th>
-                      <th className="text-left">Deutsch</th>
+                      <th className="text-left">Pronomen</th>
+                      <th className="text-center">Verb</th>
+                      <th className="text-right">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {pastConjugation.map((item) => (
                       <tr key={item.pronoun}>
-                        <td className="font-arabic-display text-lg font-semibold text-turquoise text-right" dir="rtl">
+                        <td className="font-arabic-sans text-lg font-semibold text-turquoise text-left" dir="rtl">
                           {item.pronoun}
                         </td>
-                        <td className="font-arabic-display text-lg text-foreground text-right" dir="rtl">
+                        <td className="font-arabic-sans text-lg text-foreground text-center" dir="rtl">
                           {item.form}
                         </td>
-                        <td className="text-muted-foreground text-left">
+                        <td className="text-muted-foreground text-right">
                           {item.german}
                         </td>
                       </tr>
@@ -112,21 +112,21 @@ const ConjugationSection = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th className="text-right">Pronomen</th>
-                      <th className="text-right">Verb</th>
-                      <th className="text-left">Deutsch</th>
+                      <th className="text-left">Pronomen</th>
+                      <th className="text-center">Verb</th>
+                      <th className="text-right">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {presentConjugation.map((item) => (
                       <tr key={item.pronoun}>
-                        <td className="font-arabic-display text-lg font-semibold text-turquoise text-right" dir="rtl">
+                        <td className="font-arabic-sans text-lg font-semibold text-turquoise text-left" dir="rtl">
                           {item.pronoun}
                         </td>
-                        <td className="font-arabic-display text-lg text-foreground text-right" dir="rtl">
+                        <td className="font-arabic-sans text-lg text-foreground text-center" dir="rtl">
                           {item.form}
                         </td>
-                        <td className="text-muted-foreground text-left">
+                        <td className="text-muted-foreground text-right">
                           {item.german}
                         </td>
                       </tr>
@@ -147,21 +147,21 @@ const ConjugationSection = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th className="text-right">Pronomen</th>
-                      <th className="text-right">Verb</th>
-                      <th className="text-left">Deutsch</th>
+                      <th className="text-left">Pronomen</th>
+                      <th className="text-center">Verb</th>
+                      <th className="text-right">Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
                     {imperativeConjugation.map((item) => (
                       <tr key={item.pronoun}>
-                        <td className="font-arabic-display text-lg font-semibold text-turquoise text-right" dir="rtl">
+                        <td className="font-arabic-sans text-lg font-semibold text-turquoise text-left" dir="rtl">
                           {item.pronoun}
                         </td>
-                        <td className="font-arabic-display text-lg text-foreground text-right" dir="rtl">
+                        <td className="font-arabic-sans text-lg text-foreground text-center" dir="rtl">
                           {item.form}
                         </td>
-                        <td className="text-muted-foreground text-left">
+                        <td className="text-muted-foreground text-right">
                           {item.german}
                         </td>
                       </tr>
