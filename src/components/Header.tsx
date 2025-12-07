@@ -1,4 +1,5 @@
 import { BookOpen, GraduationCap, Home, Info } from "lucide-react";
+import logoBlue from "@/assets/logo-blue.png";
 
 const navItems = [
   { label: "Startseite", href: "#", icon: Home },
@@ -14,9 +15,7 @@ const Header = () => {
         <div className="container flex items-center justify-between py-4">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise to-turquoise-light shadow-glow">
-              <GraduationCap className="h-6 w-6 text-night-blue" />
-            </div>
+            <img src={logoBlue} alt="Warizmy Akademie Logo" className="h-12 w-12" />
             <div className="flex flex-col">
               <span className="font-arabic-display text-lg font-bold text-primary">
                 أكاديمية واريزمي
