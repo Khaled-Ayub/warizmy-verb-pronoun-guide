@@ -57,7 +57,7 @@ const ConjugationSection = () => {
 
         <div className="glass-card overflow-hidden p-6 md:p-8">
           <Tabs defaultValue="past" className="w-full">
-            <TabsList className="mb-8 grid w-full grid-cols-3 gap-2 bg-muted/50 p-2" dir="ltr">
+            <TabsList className="mb-8 grid w-full grid-cols-3 gap-2 bg-muted/50 p-2" dir="rtl">
               <TabsTrigger
                 value="past"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white"
