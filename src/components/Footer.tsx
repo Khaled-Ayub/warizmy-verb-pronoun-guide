@@ -9,23 +9,27 @@ const Footer = () => {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise to-turquoise-light">
               <GraduationCap className="h-5 w-5 text-night-blue" />
             </div>
-            <span className="font-arabic-display text-lg font-bold text-primary">
-              أكاديمية واريزمي
-            </span>
+            <div>
+              <span className="font-arabic-display text-lg font-bold text-primary">
+                أكاديمية واريزمي
+              </span>
+              <span className="mx-2 text-muted-foreground">|</span>
+              <span className="font-medium text-foreground">Warizmy Akademie</span>
+            </div>
           </div>
 
           <p className="max-w-md text-muted-foreground">
-            أكاديمية واريزمي – منصة تعليمية لدراسة اللغة العربية وعلومها.
+            Lernplattform für die arabische Sprache und ihre Wissenschaften
           </p>
 
-          <p className="text-sm text-muted-foreground" dir="ltr">
-            Lernseite erstellt für die Schüler der Warizmy Akademie.
+          <p className="font-arabic-display text-sm text-muted-foreground">
+            منصة تعليمية لدراسة اللغة العربية وعلومها
           </p>
 
           <div className="h-px w-full max-w-xs bg-gradient-to-r from-transparent via-border to-transparent" />
 
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Warizmy Akademie
+            © {new Date().getFullYear()} Warizmy Akademie – Für Schüler erstellt
           </p>
         </div>
       </div>

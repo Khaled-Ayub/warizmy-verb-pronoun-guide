@@ -10,17 +10,17 @@ const LearningTipSection = () => {
               <Lightbulb className="h-8 w-8 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="mb-3 font-arabic-display text-xl font-bold text-foreground">
-                نصيحة تعليمية من أكاديمية واريزمي
+              <h3 className="mb-3 text-xl font-bold text-foreground">
+                Lerntipp der Warizmy Akademie
               </h3>
               <p className="mb-3 leading-relaxed text-foreground">
-                يمكنك استخدام هذه الصفحة قبل الدرس أو بعده لمراجعة القواعد وحفظ
-                الجداول. جرّب أن تقرأ الأمثلة بصوت عالٍ وتكتب جملك الخاصة.
-              </p>
-              <p className="text-sm text-muted-foreground" dir="ltr">
                 Du kannst diese Seite vor oder nach dem Unterricht nutzen, um die
                 Regeln zu wiederholen und die Tabellen zu lernen. Versuche, die
-                Beispiele laut zu lesen und eigene Sätze zu schreiben.
+                Beispiele laut zu lesen und eigene Sätze zu schreiben!
+              </p>
+              <p className="font-arabic-display text-sm text-muted-foreground">
+                يمكنك استخدام هذه الصفحة قبل الدرس أو بعده لمراجعة القواعد وحفظ
+                الجداول. جرّب أن تقرأ الأمثلة بصوت عالٍ وتكتب جملك الخاصة.
               </p>
             </div>
           </div>
