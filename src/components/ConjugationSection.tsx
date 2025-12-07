@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const pastConjugation = [
@@ -47,11 +46,12 @@ const ConjugationSection = () => {
     <section className="bg-gradient-to-b from-muted/30 to-background py-16 md:py-24">
       <div className="container">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-arabic-display text-3xl font-bold text-primary md:text-4xl">
-            تصريف الأفعال
+          <p className="mb-2 font-arabic-display text-turquoise">تصريف الأفعال</p>
+          <h2 className="mb-4 text-3xl font-bold text-primary md:text-4xl">
+            Konjugation der Verben
           </h2>
           <p className="text-muted-foreground">
-            Konjugation am Beispiel von نَصَرَ (helfen)
+            Am Beispiel von <span className="font-arabic-display font-semibold">نَصَرَ</span> (helfen)
           </p>
         </div>
 
@@ -62,19 +62,19 @@ const ConjugationSection = () => {
                 value="past"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white"
               >
-                الماضي
+                <span className="hidden sm:inline">Vergangenheit – </span>الماضي
               </TabsTrigger>
               <TabsTrigger
                 value="present"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-turquoise data-[state=active]:to-turquoise-light data-[state=active]:text-night-blue"
               >
-                المضارع
+                <span className="hidden sm:inline">Gegenwart – </span>المضارع
               </TabsTrigger>
               <TabsTrigger
                 value="imperative"
                 className="rounded-xl data-[state=active]:bg-gradient-to-l data-[state=active]:from-violet-500 data-[state=active]:to-purple-500 data-[state=active]:text-white"
               >
-                الأمر
+                <span className="hidden sm:inline">Imperativ – </span>الأمر
               </TabsTrigger>
             </TabsList>
 
@@ -83,9 +83,9 @@ const ConjugationSection = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>الضمير</th>
-                      <th>الفعل</th>
-                      <th dir="ltr">Deutsch</th>
+                      <th>Pronomen</th>
+                      <th>Verb</th>
+                      <th>Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -97,7 +97,7 @@ const ConjugationSection = () => {
                         <td className="font-arabic-display text-lg text-foreground">
                           {item.form}
                         </td>
-                        <td dir="ltr" className="text-muted-foreground">
+                        <td className="text-muted-foreground">
                           {item.german}
                         </td>
                       </tr>
@@ -112,9 +112,9 @@ const ConjugationSection = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>الضمير</th>
-                      <th>الفعل</th>
-                      <th dir="ltr">Deutsch</th>
+                      <th>Pronomen</th>
+                      <th>Verb</th>
+                      <th>Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -126,7 +126,7 @@ const ConjugationSection = () => {
                         <td className="font-arabic-display text-lg text-foreground">
                           {item.form}
                         </td>
-                        <td dir="ltr" className="text-muted-foreground">
+                        <td className="text-muted-foreground">
                           {item.german}
                         </td>
                       </tr>
@@ -136,8 +136,8 @@ const ConjugationSection = () => {
               </div>
 
               <div className="mt-6 rounded-xl bg-turquoise/10 p-4 text-center">
-                <p className="font-medium text-turquoise">
-                  أحرف المضارعة: أ – ن – ي – ت
+                <p className="font-medium text-foreground">
+                  Präsensbuchstaben: <span className="font-arabic-display text-turquoise">أ – ن – ي – ت</span>
                 </p>
               </div>
             </TabsContent>
@@ -147,9 +147,9 @@ const ConjugationSection = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>الضمير</th>
-                      <th>الفعل</th>
-                      <th dir="ltr">Deutsch</th>
+                      <th>Pronomen</th>
+                      <th>Verb</th>
+                      <th>Deutsch</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -161,7 +161,7 @@ const ConjugationSection = () => {
                         <td className="font-arabic-display text-lg text-foreground">
                           {item.form}
                         </td>
-                        <td dir="ltr" className="text-muted-foreground">
+                        <td className="text-muted-foreground">
                           {item.german}
                         </td>
                       </tr>
@@ -171,13 +171,9 @@ const ConjugationSection = () => {
               </div>
 
               <div className="mt-6 rounded-xl bg-violet-500/10 p-4">
-                <p className="text-center text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">ملاحظة:</span> يُشتق
-                  فعل الأمر من المضارع بحذف حرف المضارعة وتسكين الآخر.
-                </p>
-                <p className="mt-2 text-center text-xs text-muted-foreground" dir="ltr">
-                  Der Imperativ wird vom Präsens abgeleitet durch Entfernen des
-                  Präsensbuchstabens.
+                <p className="text-center text-sm text-foreground">
+                  <span className="font-semibold">Bildung:</span> Der Imperativ wird vom Präsens abgeleitet 
+                  durch Entfernen des Präsensbuchstabens und Sukun am Ende.
                 </p>
               </div>
             </TabsContent>
@@ -186,38 +182,33 @@ const ConjugationSection = () => {
 
         {/* Additional Verbs */}
         <div className="mt-12">
-          <h3 className="mb-6 text-center font-arabic-display text-xl font-bold text-foreground">
-            أفعال إضافية
+          <h3 className="mb-6 text-center text-xl font-bold text-foreground">
+            Weitere Verben zum Üben
           </h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {additionalVerbs.map((verb) => (
-              <div
-                key={verb.past}
-                className="glass-card-hover p-5 text-center"
-              >
-                <div className="mb-3 space-y-1">
+              <div key={verb.past} className="glass-card-hover p-5 text-center">
+                <p className="mb-3 font-medium text-foreground">{verb.german}</p>
+                <div className="space-y-2">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="text-xs text-muted-foreground">ماضي</span>
+                    <span className="w-16 text-left text-xs text-muted-foreground">Vergangen.</span>
                     <span className="font-arabic-display text-lg font-bold text-foreground">
                       {verb.past}
                     </span>
                   </div>
                   <div className="flex items-center justify-center gap-2">
-                    <span className="text-xs text-muted-foreground">مضارع</span>
+                    <span className="w-16 text-left text-xs text-muted-foreground">Gegenwart</span>
                     <span className="font-arabic-display text-lg text-turquoise">
                       {verb.present}
                     </span>
                   </div>
                   <div className="flex items-center justify-center gap-2">
-                    <span className="text-xs text-muted-foreground">أمر</span>
+                    <span className="w-16 text-left text-xs text-muted-foreground">Imperativ</span>
                     <span className="font-arabic-display text-lg text-violet-500">
                       {verb.imperative}
                     </span>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground" dir="ltr">
-                  {verb.german}
-                </p>
               </div>
             ))}
           </div>

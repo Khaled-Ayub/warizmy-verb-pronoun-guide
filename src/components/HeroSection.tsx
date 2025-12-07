@@ -4,23 +4,27 @@ import { Button } from "@/components/ui/button";
 const featureCards = [
   {
     icon: BookOpen,
-    title: "أنواع الأفعال",
-    description: "تعرّف على الماضي والمضارع والأمر",
+    titleAr: "أنواع الأفعال",
+    title: "Verbarten",
+    description: "Vergangenheit, Gegenwart & Imperativ",
   },
   {
     icon: FileText,
-    title: "الضمائر",
-    description: "الضمائر المنفصلة والمتصلة بالتفصيل",
+    titleAr: "الضمائر",
+    title: "Pronomen",
+    description: "Getrennte und verbundene Pronomen",
   },
   {
     icon: PenTool,
-    title: "جداول التصريف",
-    description: "جداول واضحة لتصريف الأفعال",
+    titleAr: "جداول التصريف",
+    title: "Konjugation",
+    description: "Übersichtliche Konjugationstabellen",
   },
   {
     icon: Trophy,
-    title: "تمارين وتدريب",
-    description: "راجع وتدرّب على ما تعلّمته",
+    titleAr: "تمارين وتدريب",
+    title: "Übungen",
+    description: "Wiederhole und festige dein Wissen",
   },
 ];
 
@@ -38,23 +42,21 @@ const HeroSection = () => {
           {/* Right side - Content */}
           <div className="flex flex-col justify-center">
             <div className="animate-fade-up">
-              <span className="chip mb-6">درس جديد</span>
+              <span className="chip mb-6">Neue Lektion</span>
             </div>
 
             <h1 className="animate-fade-up animation-delay-100 mb-6 font-arabic-display text-4xl font-bold leading-tight text-primary md:text-5xl lg:text-6xl">
-              تعلم الأفعال والضمائر العربية مع{" "}
-              <span className="gradient-text">أكاديمية واريزمي</span>
+              Arabische Verben & Pronomen lernen
             </h1>
 
             <p className="animate-fade-up animation-delay-200 mb-4 text-lg leading-relaxed text-muted-foreground md:text-xl">
-              درس مبسط لطلاب الأكاديمية يشرح أنواع الأفعال، جداول التصريف والضمائر
-              بالعربية مع ترجمة ألمانية.
+              Eine verständliche Lerneinheit der Warizmy Akademie, die dir die 
+              arabischen Verbarten, Konjugationstabellen und Pronomen erklärt – 
+              mit deutschen Übersetzungen.
             </p>
 
-            <p className="animate-fade-up animation-delay-300 mb-8 text-base text-muted-foreground/80" dir="ltr">
-              Diese Lerneinheit der Warizmy Akademie erklärt arabische Verben und
-              Pronomen mit einfachen Definitionen, Tabellen und Beispielen. Ideal
-              zum Wiederholen zu Hause.
+            <p className="animate-fade-up animation-delay-300 mb-4 font-arabic-sans text-base text-muted-foreground/80">
+              درس مبسط يشرح أنواع الأفعال وجداول التصريف والضمائر بالعربية مع ترجمة ألمانية.
             </p>
 
             <div className="animate-fade-up animation-delay-400 flex flex-wrap gap-4">
@@ -62,7 +64,7 @@ const HeroSection = () => {
                 size="lg"
                 className="group gap-2 rounded-xl bg-gradient-to-l from-turquoise to-turquoise-light px-8 text-night-blue shadow-glow transition-all hover:shadow-xl"
               >
-                ابدأ الدرس
+                Lektion starten
                 <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
               </Button>
               <Button
@@ -70,7 +72,7 @@ const HeroSection = () => {
                 variant="outline"
                 className="rounded-xl border-2 border-primary/20 px-8 hover:bg-primary/5"
               >
-                انتقل إلى جداول الضمائر
+                Zu den Pronomen
               </Button>
             </div>
           </div>
@@ -86,7 +88,10 @@ const HeroSection = () => {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise/20 to-turquoise-light/20">
                   <card.icon className="h-6 w-6 text-turquoise" />
                 </div>
-                <h3 className="mb-2 font-arabic-display text-lg font-bold text-foreground">
+                <p className="mb-1 font-arabic-display text-sm text-turquoise">
+                  {card.titleAr}
+                </p>
+                <h3 className="mb-2 text-lg font-bold text-foreground">
                   {card.title}
                 </h3>
                 <p className="text-sm text-muted-foreground">{card.description}</p>

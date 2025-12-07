@@ -1,10 +1,10 @@
 import { BookOpen, GraduationCap, Home, Info } from "lucide-react";
 
 const navItems = [
-  { label: "الرئيسية", href: "#", icon: Home },
-  { label: "دروس النحو", href: "#", icon: BookOpen },
-  { label: "الأفعال والضمائر", href: "#verbs", icon: GraduationCap, active: true },
-  { label: "عن الأكاديمية", href: "#about", icon: Info },
+  { label: "Startseite", href: "#", icon: Home },
+  { label: "Grammatik", href: "#", icon: BookOpen },
+  { label: "Verben & Pronomen", href: "#verbs", icon: GraduationCap, active: true },
+  { label: "Über uns", href: "#about", icon: Info },
 ];
 
 const Header = () => {
