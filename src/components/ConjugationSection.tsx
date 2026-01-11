@@ -15,8 +15,11 @@ const pastConjugation = [
   { pronoun: "أنا", prefix: "", root: "نَصَرْ", suffix: "تُ", german: "ich half" },
   { pronoun: "أنتَ", prefix: "", root: "نَصَرْ", suffix: "تَ", german: "du halfst (m)" },
   { pronoun: "أنتِ", prefix: "", root: "نَصَرْ", suffix: "تِ", german: "du halfst (w)" },
+  { pronoun: "أنتما", prefix: "", root: "نَصَرْ", suffix: "تُمَا", german: "ihr halft (dual)" },
   { pronoun: "هو", prefix: "", root: "نَصَرَ", suffix: "", german: "er half" },
   { pronoun: "هي", prefix: "", root: "نَصَرَ", suffix: "تْ", german: "sie half" },
+  { pronoun: "هما (م)", prefix: "", root: "نَصَرَ", suffix: "ا", german: "sie halfen (dual m)" },
+  { pronoun: "هما (ف)", prefix: "", root: "نَصَرَ", suffix: "تَا", german: "sie halfen (dual w)" },
   { pronoun: "نحن", prefix: "", root: "نَصَرْ", suffix: "نا", german: "wir halfen" },
   { pronoun: "أنتم", prefix: "", root: "نَصَرْ", suffix: "تُم", german: "ihr halft (m)" },
   { pronoun: "أنتن", prefix: "", root: "نَصَرْ", suffix: "تُنَّ", german: "ihr halft (w)" },
@@ -33,8 +36,11 @@ const presentConjugation = [
   { pronoun: "أنا", prefix: "أَ", root: "نْصُرُ", suffix: "", german: "ich helfe" },
   { pronoun: "أنتَ", prefix: "تَ", root: "نْصُرُ", suffix: "", german: "du hilfst (m)" },
   { pronoun: "أنتِ", prefix: "تَ", root: "نْصُرِ", suffix: "ينَ", german: "du hilfst (w)" },
+  { pronoun: "أنتما", prefix: "تَ", root: "نْصُرَ", suffix: "انِ", german: "ihr helft (dual)" },
   { pronoun: "هو", prefix: "يَ", root: "نْصُرُ", suffix: "", german: "er hilft" },
   { pronoun: "هي", prefix: "تَ", root: "نْصُرُ", suffix: "", german: "sie hilft" },
+  { pronoun: "هما (م)", prefix: "يَ", root: "نْصُرَ", suffix: "انِ", german: "sie helfen (dual m)" },
+  { pronoun: "هما (ف)", prefix: "تَ", root: "نْصُرَ", suffix: "انِ", german: "sie helfen (dual w)" },
   { pronoun: "نحن", prefix: "نَ", root: "نْصُرُ", suffix: "", german: "wir helfen" },
   { pronoun: "أنتم", prefix: "تَ", root: "نْصُرُ", suffix: "ونَ", german: "ihr helft (m)" },
   { pronoun: "أنتن", prefix: "تَ", root: "نْصُرْ", suffix: "نَ", german: "ihr helft (w)" },
@@ -52,6 +58,25 @@ const imperativeConjugation = [
   { pronoun: "أنتما", prefix: "", root: "اُنْصُرَ", suffix: "ا", german: "helft! (dual)" },
   { pronoun: "أنتم", prefix: "", root: "اُنْصُرُ", suffix: "وا", german: "helft! (m)" },
   { pronoun: "أنتن", prefix: "", root: "اُنْصُرْ", suffix: "نَ", german: "helft! (w)" },
+];
+
+// ============================================
+// VERNEINUNG (لا / لن / لم) - Konjugation
+// ============================================
+const negationConjugation = [
+  { pronoun: "أنا", la: "لا أَنْصُرُ", lan: "لَنْ أَنْصُرَ", lam: "لَمْ أَنْصُرْ", laNahy: "—" },
+  { pronoun: "أنتَ", la: "لا تَنْصُرُ", lan: "لَنْ تَنْصُرَ", lam: "لَمْ تَنْصُرْ", laNahy: "لا تَنْصُرْ" },
+  { pronoun: "أنتِ", la: "لا تَنْصُرِينَ", lan: "لَنْ تَنْصُرِيَ", lam: "لَمْ تَنْصُرِي", laNahy: "لا تَنْصُرِي" },
+  { pronoun: "أنتما", la: "لا تَنْصُرَانِ", lan: "لَنْ تَنْصُرَا", lam: "لَمْ تَنْصُرَا", laNahy: "لا تَنْصُرَا" },
+  { pronoun: "هو", la: "لا يَنْصُرُ", lan: "لَنْ يَنْصُرَ", lam: "لَمْ يَنْصُرْ", laNahy: "—" },
+  { pronoun: "هي", la: "لا تَنْصُرُ", lan: "لَنْ تَنْصُرَ", lam: "لَمْ تَنْصُرْ", laNahy: "—" },
+  { pronoun: "هما (م)", la: "لا يَنْصُرَانِ", lan: "لَنْ يَنْصُرَا", lam: "لَمْ يَنْصُرَا", laNahy: "—" },
+  { pronoun: "هما (ف)", la: "لا تَنْصُرَانِ", lan: "لَنْ تَنْصُرَا", lam: "لَمْ تَنْصُرَا", laNahy: "—" },
+  { pronoun: "نحن", la: "لا نَنْصُرُ", lan: "لَنْ نَنْصُرَ", lam: "لَمْ نَنْصُرْ", laNahy: "—" },
+  { pronoun: "أنتم", la: "لا تَنْصُرُونَ", lan: "لَنْ تَنْصُرُوا", lam: "لَمْ تَنْصُرُوا", laNahy: "لا تَنْصُرُوا" },
+  { pronoun: "أنتن", la: "لا تَنْصُرْنَ", lan: "لَنْ تَنْصُرْنَ", lam: "لَمْ تَنْصُرْنَ", laNahy: "لا تَنْصُرْنَ" },
+  { pronoun: "هم", la: "لا يَنْصُرُونَ", lan: "لَنْ يَنْصُرُوا", lam: "لَمْ يَنْصُرُوا", laNahy: "—" },
+  { pronoun: "هن", la: "لا يَنْصُرْنَ", lan: "لَنْ يَنْصُرْنَ", lam: "لَمْ يَنْصُرْنَ", laNahy: "—" },
 ];
 
 // ============================================
@@ -303,6 +328,58 @@ const ConjugationSection = () => {
               </div>
             </TabsContent>
           </Tabs>
+        </div>
+
+        {/* ============================================ */}
+        {/* Verneinung (لا / لن / لم) - Tabelle */}
+        {/* ============================================ */}
+        <div className="mt-10 sm:mt-12">
+          <div className="mb-6 text-center">
+            <h3 className="mb-2 text-xl sm:text-2xl font-bold text-foreground">
+              Verneinung mit <span dir="rtl">لا / لن / لم</span>
+            </h3>
+            <p className="text-muted-foreground">
+              Am Beispiel von <span className="font-arabic-display font-semibold" dir="rtl">نَصَرَ</span> (helfen)
+            </p>
+          </div>
+
+          <div className="table-container overflow-x-auto -mx-2 px-2">
+            <table dir="rtl" className="w-full min-w-[520px]">
+              <thead>
+                <tr>
+                  <th className="text-right">Pronomen</th>
+                  <th className="text-center"><span dir="rtl">لا</span> (Gegenwart)</th>
+                  <th className="text-center"><span dir="rtl">لن</span> (Zukunft)</th>
+                  <th className="text-center"><span dir="rtl">لم</span> (Vergangenheit)</th>
+                  <th className="text-center"><span dir="rtl">لا</span> (Verbot)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {negationConjugation.map((item) => (
+                  <tr key={`${item.pronoun}-neg`}>
+                    <td className="font-arabic-sans text-lg font-semibold text-turquoise text-right">
+                      {item.pronoun}
+                    </td>
+                    <td className="text-center font-arabic-sans text-lg">{item.la}</td>
+                    <td className="text-center font-arabic-sans text-lg">{item.lan}</td>
+                    <td className="text-center font-arabic-sans text-lg">{item.lam}</td>
+                    <td className="text-center font-arabic-sans text-lg">{item.laNahy}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 rounded-xl bg-slate-500/10 p-4 sm:p-5 text-sm sm:text-base">
+            <p className="text-foreground">
+              <span className="font-semibold">Erklärung:</span>{" "}
+              <span dir="rtl">لا</span> verneint die Gegenwart (مضارع مرفوع).{" "}
+              <span dir="rtl">لن</span> verneint die Zukunft und setzt den مضارع in den منصـوب (Endung -َ).{" "}
+              <span dir="rtl">لم</span> verneint die Vergangenheit und setzt den مضارع in den مجزوم (Endung -ْ).{" "}
+              <span dir="rtl">لا</span> als Verbot (<span dir="rtl">لا الناهية</span>) wird nur mit der 2. Person verwendet
+              und verlangt ebenfalls den مجزوم.
+            </p>
+          </div>
         </div>
 
         {/* ============================================ */}
