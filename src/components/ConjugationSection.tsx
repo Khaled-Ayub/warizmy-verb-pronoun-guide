@@ -203,7 +203,7 @@ const HighlightedVerb = ({
 
 const ConjugationSection = () => {
   return (
-    <section className="bg-gradient-to-b from-muted/30 to-background py-16 md:py-24">
+    <section id="conjugation" className="bg-gradient-to-b from-muted/30 to-background py-16 md:py-24">
       <div className="container">
         {/* Überschrift der Sektion */}
         <div className="mb-12 text-center">
@@ -411,7 +411,7 @@ const ConjugationSection = () => {
         {/* ============================================ */}
         {/* Verneinung (لا / لن / لم) - Tabelle */}
         {/* ============================================ */}
-        <div className="mt-10 sm:mt-12">
+        <div id="negation" className="mt-10 sm:mt-12">
           <div className="mb-6 text-center">
             <h3 className="mb-2 text-xl sm:text-2xl font-bold text-foreground">
               Verneinung mit <span dir="rtl">لا / لن / لم</span>

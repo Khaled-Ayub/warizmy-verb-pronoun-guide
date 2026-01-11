@@ -58,7 +58,7 @@ const verbTypes = [
 
 const VerbTypesSection = () => {
   return (
-    <section className="bg-gradient-to-b from-background to-muted/30 py-16 md:py-24">
+    <section id="verb-types" className="bg-gradient-to-b from-background to-muted/30 py-16 md:py-24">
       <div className="container">
         {/* Überschrift */}
         <div className="mb-12 text-center">

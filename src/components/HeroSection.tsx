@@ -1,5 +1,4 @@
-import { ArrowDown, BookOpen, FileText, PenTool, Trophy } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowDown, Ban, BookOpen, FileText, Layers, PenTool, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 
 /**
@@ -8,11 +7,20 @@ import { Link } from "react-router-dom";
  */
 const featureCards = [
   {
+    icon: Layers,
+    titleAr: "مبادئ الأفعال",
+    title: "Verbgrundlagen",
+    description: "Einfacher Einstieg in die Zeiten",
+    emoji: "🧱",
+    href: "#verbs",
+  },
+  {
     icon: BookOpen,
     titleAr: "أنواع الأفعال",
     title: "Verbarten",
     description: "Vergangenheit, Gegenwart & Imperativ",
     emoji: "📚",
+    href: "#verb-types",
   },
   {
     icon: FileText,
@@ -20,6 +28,7 @@ const featureCards = [
     title: "Pronomen",
     description: "Getrennte und verbundene Pronomen",
     emoji: "👤",
+    href: "#pronouns",
   },
   {
     icon: PenTool,
@@ -27,6 +36,15 @@ const featureCards = [
     title: "Konjugation",
     description: "Übersichtliche Konjugationstabellen",
     emoji: "✏️",
+    href: "#conjugation",
+  },
+  {
+    icon: Ban,
+    titleAr: "النفي",
+    title: "Verneinung",
+    description: "لا / لن / لم und Verbot",
+    emoji: "⛔",
+    href: "#negation",
   },
   {
     icon: Trophy,
@@ -34,6 +52,7 @@ const featureCards = [
     title: "Übungen",
     description: "Wiederhole und festige dein Wissen",
     emoji: "🏆",
+    href: "/vokabeltrainer",
   },
 ];
 
@@ -109,36 +128,69 @@ const HeroSection = () => {
             </Link>
           </div>
 
-          {/* Feature-Karten - Horizontal auf Desktop, Vertikal auf Mobile */}
-          <div className="animate-fade-up animation-delay-400 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featureCards.map((card, index) => (
-              <div
-                key={card.title}
-                className="glass-card-hover glow-border p-4 sm:p-6 flex flex-col items-center text-center transition-all hover:scale-105"
-                style={{ animationDelay: `${(index + 1) * 100}ms` }}
-              >
-                {/* Emoji Icon */}
-                <div className="text-3xl sm:text-4xl mb-3">{card.emoji}</div>
-                
-                {/* Icon in Kreis */}
-                <div className="mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise/20 to-turquoise-light/20">
-                  <card.icon className="h-5 w-5 sm:h-6 sm:w-6 text-turquoise" />
-                </div>
-                
-                {/* Arabischer Titel */}
-                <p className="mb-1 font-arabic-display text-sm sm:text-base text-turquoise" dir="rtl">
-                  {card.titleAr}
-                </p>
-                
-                {/* Deutscher Titel */}
-                <h3 className="mb-2 text-base sm:text-lg font-bold text-foreground">
-                  {card.title}
-                </h3>
-                
-                {/* Beschreibung */}
-                <p className="text-xs sm:text-sm text-muted-foreground">{card.description}</p>
-              </div>
-            ))}
+          {/* Themenauswahl - schnelle Navigation */}
+          <div className="animate-fade-up animation-delay-350 w-full text-center mb-6">
+            <p className="text-sm sm:text-base font-medium text-muted-foreground">
+              Themenauswahl – wähle, was du lernen willst
+            </p>
+          </div>
+
+          {/* Feature-Karten - anklickbar */}
+          <div className="animate-fade-up animation-delay-400 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {featureCards.map((card, index) => {
+              const isAnchor = card.href.startsWith("#") || card.href.startsWith("/#");
+              const cardContent = (
+                <>
+                  {/* Emoji Icon */}
+                  <div className="text-3xl sm:text-4xl mb-3">{card.emoji}</div>
+
+                  {/* Icon in Kreis */}
+                  <div className="mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise/20 to-turquoise-light/20">
+                    <card.icon className="h-5 w-5 sm:h-6 sm:w-6 text-turquoise" />
+                  </div>
+
+                  {/* Arabischer Titel */}
+                  <p className="mb-1 font-arabic-display text-sm sm:text-base text-turquoise" dir="rtl">
+                    {card.titleAr}
+                  </p>
+
+                  {/* Deutscher Titel */}
+                  <h3 className="mb-2 text-base sm:text-lg font-bold text-foreground">
+                    {card.title}
+                  </h3>
+
+                  {/* Beschreibung */}
+                  <p className="text-xs sm:text-sm text-muted-foreground">{card.description}</p>
+                </>
+              );
+
+              const cardClasses =
+                "glass-card-hover glow-border p-4 sm:p-6 flex flex-col items-center text-center transition-all hover:scale-105";
+
+              if (isAnchor) {
+                return (
+                  <a
+                    key={card.title}
+                    href={card.href}
+                    className={cardClasses}
+                    style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                  >
+                    {cardContent}
+                  </a>
+                );
+              }
+
+              return (
+                <Link
+                  key={card.title}
+                  to={card.href}
+                  className={cardClasses}
+                  style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                >
+                  {cardContent}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
