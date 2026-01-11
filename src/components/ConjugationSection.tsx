@@ -64,19 +64,97 @@ const imperativeConjugation = [
 // VERNEINUNG (لا / لن / لم) - Konjugation
 // ============================================
 const negationConjugation = [
-  { pronoun: "أنا", la: "لا أَنْصُرُ", lan: "لَنْ أَنْصُرَ", lam: "لَمْ أَنْصُرْ", laNahy: "—" },
-  { pronoun: "أنتَ", la: "لا تَنْصُرُ", lan: "لَنْ تَنْصُرَ", lam: "لَمْ تَنْصُرْ", laNahy: "لا تَنْصُرْ" },
-  { pronoun: "أنتِ", la: "لا تَنْصُرِينَ", lan: "لَنْ تَنْصُرِيَ", lam: "لَمْ تَنْصُرِي", laNahy: "لا تَنْصُرِي" },
-  { pronoun: "أنتما", la: "لا تَنْصُرَانِ", lan: "لَنْ تَنْصُرَا", lam: "لَمْ تَنْصُرَا", laNahy: "لا تَنْصُرَا" },
-  { pronoun: "هو", la: "لا يَنْصُرُ", lan: "لَنْ يَنْصُرَ", lam: "لَمْ يَنْصُرْ", laNahy: "—" },
-  { pronoun: "هي", la: "لا تَنْصُرُ", lan: "لَنْ تَنْصُرَ", lam: "لَمْ تَنْصُرْ", laNahy: "—" },
-  { pronoun: "هما (م)", la: "لا يَنْصُرَانِ", lan: "لَنْ يَنْصُرَا", lam: "لَمْ يَنْصُرَا", laNahy: "—" },
-  { pronoun: "هما (ف)", la: "لا تَنْصُرَانِ", lan: "لَنْ تَنْصُرَا", lam: "لَمْ تَنْصُرَا", laNahy: "—" },
-  { pronoun: "نحن", la: "لا نَنْصُرُ", lan: "لَنْ نَنْصُرَ", lam: "لَمْ نَنْصُرْ", laNahy: "—" },
-  { pronoun: "أنتم", la: "لا تَنْصُرُونَ", lan: "لَنْ تَنْصُرُوا", lam: "لَمْ تَنْصُرُوا", laNahy: "لا تَنْصُرُوا" },
-  { pronoun: "أنتن", la: "لا تَنْصُرْنَ", lan: "لَنْ تَنْصُرْنَ", lam: "لَمْ تَنْصُرْنَ", laNahy: "لا تَنْصُرْنَ" },
-  { pronoun: "هم", la: "لا يَنْصُرُونَ", lan: "لَنْ يَنْصُرُوا", lam: "لَمْ يَنْصُرُوا", laNahy: "—" },
-  { pronoun: "هن", la: "لا يَنْصُرْنَ", lan: "لَنْ يَنْصُرْنَ", lam: "لَمْ يَنْصُرْنَ", laNahy: "—" },
+  {
+    pronoun: "أنا",
+    la: { prefix: "لا أَ", root: "نْصُر", suffix: "ُ" },
+    lan: { prefix: "لَنْ أَ", root: "نْصُر", suffix: "َ" },
+    lam: { prefix: "لَمْ أَ", root: "نْصُر", suffix: "ْ" },
+    laNahy: null,
+  },
+  {
+    pronoun: "أنتَ",
+    la: { prefix: "لا تَ", root: "نْصُر", suffix: "ُ" },
+    lan: { prefix: "لَنْ تَ", root: "نْصُر", suffix: "َ" },
+    lam: { prefix: "لَمْ تَ", root: "نْصُر", suffix: "ْ" },
+    laNahy: { prefix: "لا تَ", root: "نْصُر", suffix: "ْ" },
+  },
+  {
+    pronoun: "أنتِ",
+    la: { prefix: "لا تَ", root: "نْصُر", suffix: "ينَ" },
+    lan: { prefix: "لَنْ تَ", root: "نْصُر", suffix: "يَ" },
+    lam: { prefix: "لَمْ تَ", root: "نْصُر", suffix: "ي" },
+    laNahy: { prefix: "لا تَ", root: "نْصُر", suffix: "ي" },
+  },
+  {
+    pronoun: "أنتما",
+    la: { prefix: "لا تَ", root: "نْصُر", suffix: "انِ" },
+    lan: { prefix: "لَنْ تَ", root: "نْصُر", suffix: "ا" },
+    lam: { prefix: "لَمْ تَ", root: "نْصُر", suffix: "ا" },
+    laNahy: { prefix: "لا تَ", root: "نْصُر", suffix: "ا" },
+  },
+  {
+    pronoun: "هو",
+    la: { prefix: "لا يَ", root: "نْصُر", suffix: "ُ" },
+    lan: { prefix: "لَنْ يَ", root: "نْصُر", suffix: "َ" },
+    lam: { prefix: "لَمْ يَ", root: "نْصُر", suffix: "ْ" },
+    laNahy: null,
+  },
+  {
+    pronoun: "هي",
+    la: { prefix: "لا تَ", root: "نْصُر", suffix: "ُ" },
+    lan: { prefix: "لَنْ تَ", root: "نْصُر", suffix: "َ" },
+    lam: { prefix: "لَمْ تَ", root: "نْصُر", suffix: "ْ" },
+    laNahy: null,
+  },
+  {
+    pronoun: "هما (م)",
+    la: { prefix: "لا يَ", root: "نْصُر", suffix: "انِ" },
+    lan: { prefix: "لَنْ يَ", root: "نْصُر", suffix: "ا" },
+    lam: { prefix: "لَمْ يَ", root: "نْصُر", suffix: "ا" },
+    laNahy: null,
+  },
+  {
+    pronoun: "هما (ف)",
+    la: { prefix: "لا تَ", root: "نْصُر", suffix: "انِ" },
+    lan: { prefix: "لَنْ تَ", root: "نْصُر", suffix: "ا" },
+    lam: { prefix: "لَمْ تَ", root: "نْصُر", suffix: "ا" },
+    laNahy: null,
+  },
+  {
+    pronoun: "نحن",
+    la: { prefix: "لا نَ", root: "نْصُر", suffix: "ُ" },
+    lan: { prefix: "لَنْ نَ", root: "نْصُر", suffix: "َ" },
+    lam: { prefix: "لَمْ نَ", root: "نْصُر", suffix: "ْ" },
+    laNahy: null,
+  },
+  {
+    pronoun: "أنتم",
+    la: { prefix: "لا تَ", root: "نْصُر", suffix: "ونَ" },
+    lan: { prefix: "لَنْ تَ", root: "نْصُر", suffix: "وا" },
+    lam: { prefix: "لَمْ تَ", root: "نْصُر", suffix: "وا" },
+    laNahy: { prefix: "لا تَ", root: "نْصُر", suffix: "وا" },
+  },
+  {
+    pronoun: "أنتن",
+    la: { prefix: "لا تَ", root: "نْصُر", suffix: "نَ" },
+    lan: { prefix: "لَنْ تَ", root: "نْصُر", suffix: "نَ" },
+    lam: { prefix: "لَمْ تَ", root: "نْصُر", suffix: "نَ" },
+    laNahy: { prefix: "لا تَ", root: "نْصُر", suffix: "نَ" },
+  },
+  {
+    pronoun: "هم",
+    la: { prefix: "لا يَ", root: "نْصُر", suffix: "ونَ" },
+    lan: { prefix: "لَنْ يَ", root: "نْصُر", suffix: "وا" },
+    lam: { prefix: "لَمْ يَ", root: "نْصُر", suffix: "وا" },
+    laNahy: null,
+  },
+  {
+    pronoun: "هن",
+    la: { prefix: "لا يَ", root: "نْصُر", suffix: "نَ" },
+    lan: { prefix: "لَنْ يَ", root: "نْصُر", suffix: "نَ" },
+    lam: { prefix: "لَمْ يَ", root: "نْصُر", suffix: "نَ" },
+    laNahy: null,
+  },
 ];
 
 // ============================================
@@ -360,10 +438,38 @@ const ConjugationSection = () => {
                     <td className="font-arabic-sans text-lg font-semibold text-turquoise text-right">
                       {item.pronoun}
                     </td>
-                    <td className="text-center font-arabic-sans text-lg">{item.la}</td>
-                    <td className="text-center font-arabic-sans text-lg">{item.lan}</td>
-                    <td className="text-center font-arabic-sans text-lg">{item.lam}</td>
-                    <td className="text-center font-arabic-sans text-lg">{item.laNahy}</td>
+                    <td className="text-center">
+                      <HighlightedVerb
+                        prefix={item.la.prefix}
+                        root={item.la.root}
+                        suffix={item.la.suffix}
+                      />
+                    </td>
+                    <td className="text-center">
+                      <HighlightedVerb
+                        prefix={item.lan.prefix}
+                        root={item.lan.root}
+                        suffix={item.lan.suffix}
+                      />
+                    </td>
+                    <td className="text-center">
+                      <HighlightedVerb
+                        prefix={item.lam.prefix}
+                        root={item.lam.root}
+                        suffix={item.lam.suffix}
+                      />
+                    </td>
+                    <td className="text-center">
+                      {item.laNahy ? (
+                        <HighlightedVerb
+                          prefix={item.laNahy.prefix}
+                          root={item.laNahy.root}
+                          suffix={item.laNahy.suffix}
+                        />
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
