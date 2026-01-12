@@ -301,11 +301,11 @@ const NegationExerciseSection = () => {
               <thead>
                 <tr>
                   <th className="text-left">#</th>
-                  <th className="text-right">Verb</th>
+                  <th className="text-left">Verb</th>
                   <th className="text-center">Endung</th>
                   <th className="text-center">Antwort</th>
                   <th className="text-center">Status</th>
-                  <th className="text-right">Aktion</th>
+                  <th className="text-left">Aktion</th>
                 </tr>
               </thead>
               <tbody>
@@ -323,11 +323,11 @@ const NegationExerciseSection = () => {
                       <td className="text-left text-sm text-muted-foreground">
                         {index + 1}
                       </td>
-                      <td className="text-right">
-                        <span dir="rtl" className="font-arabic-sans text-lg text-foreground">
+                      <td className="text-left">
+                        <span dir="rtl" className="block font-arabic-sans text-lg text-foreground text-right">
                           {item.present}
                         </span>
-                        <span className="block text-xs text-muted-foreground">
+                        <span className="block text-xs text-muted-foreground text-left">
                           {item.german}
                         </span>
                       </td>
@@ -359,7 +359,7 @@ const NegationExerciseSection = () => {
                           <span className="text-muted-foreground">offen</span>
                         )}
                       </td>
-                      <td className="text-right">
+                      <td className="text-left">
                         <Button
                           variant="ghost"
                           size="sm"

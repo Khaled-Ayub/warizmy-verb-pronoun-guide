@@ -86,7 +86,7 @@ const HeroSection = () => {
           {/* Badge */}
           <div className="animate-fade-up mb-6">
             <span className="chip">
-              ✨ درس جديد – Neue Lektion
+              ? Neue Lernseite
             </span>
           </div>
 
@@ -95,19 +95,17 @@ const HeroSection = () => {
             className="animate-fade-up animation-delay-100 mb-4 font-arabic-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-turquoise" 
             dir="rtl"
           >
-            تعلّم الأفعال والضمائر العربية
+            تعلم أساسيات العربية: المفردات، النحو، والصرف
           </h1>
 
           {/* Hauptüberschrift - Deutsch */}
           <h2 className="animate-fade-up animation-delay-150 mb-6 text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
-            Arabische Verben & Pronomen lernen
+            Arabische Grundlagen: Vokabeln, Grammatik & Morphismen
           </h2>
 
           {/* Beschreibung - Deutsch */}
           <p className="animate-fade-up animation-delay-200 mb-4 text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground max-w-2xl">
-            Eine verständliche Lerneinheit der Warizmy Akademie, die dir die 
-            arabischen Verbarten, Konjugationstabellen und Pronomen erklärt – 
-            mit deutschen Übersetzungen.
+            Eine verst?ndliche Lerneinheit der Warizmy Akademie f?r grundlegende Vokabeln, Grammatik und Morphismen ? mit arabischen Beispielen und deutschen ?bersetzungen.
           </p>
 
           {/* Beschreibung - Arabisch */}
@@ -124,8 +122,8 @@ const HeroSection = () => {
               href="#verbs"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-turquoise to-turquoise-light px-6 sm:px-8 py-3 text-base font-semibold text-night-blue shadow-glow transition-all hover:shadow-xl hover:scale-105"
             >
-              <span dir="rtl" className="font-arabic-display">ابدأ الدرس</span>
-              <span>– Lektion starten</span>
+              <span dir="rtl" className="font-arabic-display">ابدأ التعلم</span>
+              <span>– Lernen starten</span>
               <ArrowDown className="h-4 w-4 animate-bounce" />
             </a>
             <Link
@@ -159,8 +157,8 @@ const HeroSection = () => {
 
                   {/* Arabischer Titel */}
                   <p className="mb-1 font-arabic-display text-sm sm:text-base text-turquoise" dir="rtl">
-                    {card.titleAr}
-                  </p>
+            وحدة تعلم مبسطة من أكاديمية وارزمي لتعلم المفردات الأساسية، قواعد النحو ومبادئ الصرف مع أمثلة عربية وترجمة ألمانية.
+          </p>
 
                   {/* Deutscher Titel */}
                   <h3 className="mb-2 text-base sm:text-lg font-bold text-foreground">

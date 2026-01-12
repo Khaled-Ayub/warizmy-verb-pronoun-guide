@@ -177,7 +177,7 @@ const PronounsSection = () => {
                           <span className="font-arabic-display text-lg sm:text-xl font-semibold text-turquoise text-right sm:text-center order-1 sm:order-2" dir="rtl">
                             {pronoun.arabic}
                           </span>
-                          <span className="text-foreground text-sm sm:text-base text-left sm:text-right order-2 sm:order-3">{pronoun.german}</span>
+                          <span className="text-foreground text-sm sm:text-base text-left order-2 sm:order-3">{pronoun.german}</span>
                         </div>
                       </div>
                     </AccordionTrigger>
@@ -249,7 +249,7 @@ const PronounsSection = () => {
                           <span className="font-arabic-display text-foreground text-center hidden sm:block" dir="rtl">
                             {pronoun.nounExample}
                           </span>
-                          <span className="text-xs sm:text-sm text-muted-foreground text-right">
+                          <span className="text-xs sm:text-sm text-muted-foreground text-left">
                             {pronoun.german}
                           </span>
                         </div>
