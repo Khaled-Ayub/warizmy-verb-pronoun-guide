@@ -4,31 +4,31 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { 
-  BookOpen, 
-  GraduationCap, 
-  Trophy, 
-  RefreshCw, 
-  CheckCircle, 
-  XCircle,
-  ChevronLeft,
-  ChevronRight,
-  Users,
-  Palette,
-  Star,
+  ArrowClockwise,
+  ArrowCounterClockwise,
+  ArrowsLeftRight,
+  BookOpen,
+  Buildings,
+  CaretLeft,
+  CaretRight,
+  CheckCircle,
   Clock,
-  Building,
-  Zap,
-  Link,
-  ArrowLeftRight,
-  Smile,
-  RotateCcw,
   Eye,
-  EyeOff,
+  EyeSlash,
+  GraduationCap,
+  Lightning,
+  Link,
+  MagnifyingGlass,
+  Palette,
   Play,
+  Smiley,
+  Star,
+  Trophy,
   UserPlus,
-  Search,
-  X
-} from "lucide-react";
+  Users,
+  X,
+  XCircle
+} from "@phosphor-icons/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import vocabulary from "@/data/vocabulary.json";
@@ -68,15 +68,15 @@ interface QuizResult {
 const iconMap: { [key: string]: React.ElementType } = {
   Users,
   UserPlus,
-  Smile,
+  Smiley,
   GraduationCap,
   Palette,
   Star,
-  Building,
+  Buildings,
   Clock,
-  Zap,
+  Lightning,
   Link,
-  ArrowLeftRight,
+  ArrowsLeftRight,
   BookOpen
 };
 
@@ -478,7 +478,7 @@ const FlashcardLearning = ({ categoryId }: { categoryId: string }) => {
 
             {/* Hinweis zum Umdrehen */}
             <div className="flex items-center gap-2 text-muted-foreground mt-4">
-              <RefreshCw className="h-5 w-5 animate-pulse" />
+              <ArrowClockwise className="h-5 w-5 animate-pulse" />
               <span>Klicken zum Umdrehen</span>
             </div>
           </div>
@@ -534,7 +534,7 @@ const FlashcardLearning = ({ categoryId }: { categoryId: string }) => {
 
             {/* Hinweis zum Zurückdrehen */}
             <div className="flex items-center gap-2 text-muted-foreground mt-4">
-              <RefreshCw className="h-5 w-5" />
+              <ArrowClockwise className="h-5 w-5" />
               <span>Klicken zum Zurückdrehen</span>
             </div>
           </div>
@@ -545,14 +545,14 @@ const FlashcardLearning = ({ categoryId }: { categoryId: string }) => {
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         {/* Zurück-Button */}
         <Button variant="outline" onClick={handlePrev} disabled={currentIndex === 0}>
-          <ChevronLeft className="h-4 w-4 mr-1" />
+          <CaretLeft className="h-4 w-4 mr-1" />
           Zurück
         </Button>
 
         {/* Mittlere Aktionen */}
         <div className="flex gap-2">
           <Button variant="outline" onClick={resetProgress} size="sm">
-            <RotateCcw className="h-4 w-4 mr-1" />
+            <ArrowCounterClockwise className="h-4 w-4 mr-1" />
             Neu starten
           </Button>
           <Button 
@@ -568,7 +568,7 @@ const FlashcardLearning = ({ categoryId }: { categoryId: string }) => {
         {/* Weiter-Button */}
         <Button variant="outline" onClick={handleNext}>
           Weiter
-          <ChevronRight className="h-4 w-4 ml-1" />
+          <CaretRight className="h-4 w-4 ml-1" />
         </Button>
       </div>
 
@@ -845,7 +845,7 @@ const VocabQuiz = ({ categoryId }: { categoryId: string }) => {
           <Progress value={result.percentage} className="h-3 mb-6" />
 
           <Button size="lg" onClick={resetQuiz} className="gap-2">
-            <RefreshCw className="h-4 w-4" />
+            <ArrowClockwise className="h-4 w-4" />
             Neues Quiz
           </Button>
         </div>
@@ -1098,7 +1098,7 @@ const VocabularyTrainer = () => {
             <div className="relative">
               {/* Sucheingabe */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="🔍 Vokabel suchen... (Arabisch oder Deutsch)"
@@ -1150,7 +1150,7 @@ const VocabularyTrainer = () => {
                             <p className="text-sm text-foreground">{item.german}</p>
                           </div>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        <CaretRight className="h-4 w-4 text-muted-foreground" />
                       </button>
                     ))}
                   </div>

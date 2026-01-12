@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { User, Users, Link, Unlink, BookOpen, MessageCircle } from "lucide-react";
+import { BookOpen, ChatCircle, Link, LinkBreak, User, Users } from "@phosphor-icons/react";
 
 const separatePronouns = [
   { person: "1. Sg", arabic: "أنا", german: "ich", emoji: "👤", description: "Ich-Form, der Sprecher selbst" },
@@ -123,7 +123,7 @@ const PronounsSection = () => {
         <div className="mb-12 grid gap-6 md:grid-cols-2">
           <div className="glass-card p-6 flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-turquoise/20">
-              <Unlink className="h-8 w-8 text-turquoise" />
+              <LinkBreak className="h-8 w-8 text-turquoise" />
             </div>
             <div>
               <h3 className="text-lg font-bold text-foreground">Getrennte Pronomen</h3>
@@ -195,7 +195,7 @@ const PronounsSection = () => {
 
               <div className="mt-6 rounded-xl bg-turquoise/10 p-4">
                 <div className="flex items-center gap-2 justify-center mb-2">
-                  <MessageCircle className="h-4 w-4 text-turquoise" />
+                  <ChatCircle className="h-4 w-4 text-turquoise" />
                   <p className="text-sm text-muted-foreground">Beispiel:</p>
                 </div>
                 <p className="text-center">

@@ -1,4 +1,4 @@
-import { Clock, Hourglass, MessageSquare } from "lucide-react";
+import { ChatText, Clock, Hourglass } from "@phosphor-icons/react";
 
 const verbTypes = [
   {
@@ -10,7 +10,7 @@ const verbTypes = [
     color: "from-amber-500 to-orange-500",
   },
   {
-    icon: MessageSquare,
+    icon: ChatText,
     titleAr: "الفعل المضارع",
     title: "Gegenwart / Zukunft",
     arabic: "حدث يقع أثناء التكلّم أو بعده",

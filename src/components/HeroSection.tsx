@@ -1,4 +1,4 @@
-import { ArrowDown, Ban, BookOpen, FileText, Layers, PenTool, Target, Trophy } from "lucide-react";
+import { ArrowDown, BookOpen, FileText, PenNib, Prohibit, Stack, Target, Trophy } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 
 /**
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
  */
 const featureCards = [
   {
-    icon: Layers,
+    icon: Stack,
     titleAr: "مبادئ الأفعال",
     title: "Verbgrundlagen",
     description: "Einfacher Einstieg in die Zeiten",
@@ -31,7 +31,7 @@ const featureCards = [
     href: "#pronouns",
   },
   {
-    icon: PenTool,
+    icon: PenNib,
     titleAr: "جداول التصريف",
     title: "Konjugation",
     description: "Übersichtliche Konjugationstabellen",
@@ -39,7 +39,7 @@ const featureCards = [
     href: "#conjugation",
   },
   {
-    icon: Ban,
+    icon: Prohibit,
     titleAr: "النفي",
     title: "Verneinung",
     description: "لا / لن / لم und Verbot",

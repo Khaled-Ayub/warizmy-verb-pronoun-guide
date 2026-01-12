@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Ban, BookOpen, GraduationCap, Home, Info, Menu, Trophy, X } from "lucide-react";
+import { BookOpen, GraduationCap, House, Info, List, Prohibit, Trophy, X } from "@phosphor-icons/react";
 import { Link, useLocation } from "react-router-dom";
 import logoBlue from "@/assets/logo-blue.png";
 
@@ -8,9 +8,9 @@ import logoBlue from "@/assets/logo-blue.png";
  * Enthält arabische und deutsche Labels, Icons und Links
  */
 const navItems = [
-  { label: "الرئيسية", labelDe: "Startseite", href: "/", icon: Home },
+  { label: "الرئيسية", labelDe: "Startseite", href: "/", icon: House },
   { label: "الأفعال والضمائر", labelDe: "Verben & Pronomen", href: "/#verbs", icon: GraduationCap },
-  { label: "النفي", labelDe: "Verneinung", href: "/#negation", icon: Ban },
+  { label: "النفي", labelDe: "Verneinung", href: "/#negation", icon: Prohibit },
   { label: "تمرين النفي", labelDe: "Verneinungs-Übung", href: "/#negation-exercises", icon: Trophy },
   { label: "مدرب المفردات", labelDe: "Vokabeltrainer", href: "/vokabeltrainer", icon: BookOpen },
   { label: "معلومات عنا", labelDe: "Über uns", href: "/about", icon: Info },
@@ -107,7 +107,7 @@ const Header = () => {
             {mobileMenuOpen ? (
               <X className="h-5 w-5" />
             ) : (
-              <Menu className="h-5 w-5" />
+              <List className="h-5 w-5" />
             )}
           </button>
         </div>

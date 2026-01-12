@@ -1,4 +1,4 @@
-import { Clock, Hourglass, MessageSquare, ArrowRight } from "lucide-react";
+import { ArrowRight, ChatText, Clock, Hourglass } from "@phosphor-icons/react";
 
 /**
  * Verbtypen-Daten mit arabischen und deutschen Titeln
@@ -21,7 +21,7 @@ const verbTypes = [
     timelinePosition: "left",
   },
   {
-    icon: MessageSquare,
+    icon: ChatText,
     titleAr: "المضارع",
     title: "Gegenwart / Zukunft",
     shortTitle: "Gegenwart",

@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    --background: 210 20% 96%;
-    --foreground: 222 47% 11%;
+    --background: 60 9% 98%;
+    --foreground: 240 28% 14%;
 
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -15,33 +15,41 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 217 91% 20%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 214 42% 13%;
+    --primary-foreground: 60 9% 98%;
 
-    --secondary: 187 94% 43%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 44 90% 41%;
+    --secondary-foreground: 216 43% 9%;
 
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 187 85% 53%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 43 96% 56%;
+    --accent-foreground: 216 43% 9%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 187 94% 43%;
+    --ring: 44 90% 41%;
 
     --radius: 1rem;
 
+    /* Brand colors (RGB) */
+    --color-primary: 19 31 47;
+    --color-primary-light: 91 116 138;
+    --color-primary-dark: 13 21 33;
+    --color-secondary: 197 147 10;
+    --color-secondary-light: 251 191 36;
+    --color-secondary-dark: 122 89 6;
+
     /* Custom colors */
-    --night-blue: 222 47% 11%;
-    --night-blue-light: 217 33% 17%;
-    --turquoise: 187 94% 43%;
-    --turquoise-light: 187 85% 53%;
-    --turquoise-glow: 187 94% 43%;
+    --night-blue: 214 42% 13%;
+    --night-blue-light: 208 21% 45%;
+    --turquoise: 44 90% 41%;
+    --turquoise-light: 43 96% 56%;
+    --turquoise-glow: 44 90% 41%;
 
     /* Glassmorphism */
     --glass-bg: 0 0% 100% / 0.8;

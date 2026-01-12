@@ -1,4 +1,4 @@
-import { BookOpen, GraduationCap, History, Lightbulb, Star, Users } from "lucide-react";
+import { BookOpen, ClockCounterClockwise, GraduationCap, Lightbulb, Star, Users } from "@phosphor-icons/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -124,7 +124,7 @@ const About = () => {
                 <div className="bg-gradient-to-r from-primary to-primary/80 p-6 sm:p-8 text-white">
                   <div className="flex items-center gap-4">
                     <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white/20 backdrop-blur">
-                      <History className="h-7 w-7 text-white" />
+                      <ClockCounterClockwise className="h-7 w-7 text-white" />
                     </div>
                     <div>
                       <p className="font-arabic-display text-white/80" dir="rtl">من هو الخوارزمي؟</p>

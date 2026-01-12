@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle, ChevronLeft, ChevronRight, RotateCcw, XCircle } from "lucide-react";
+import { ArrowCounterClockwise, CaretLeft, CaretRight, CheckCircle, XCircle } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
@@ -271,13 +271,13 @@ const NegationExerciseSection = () => {
 
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <Button variant="outline" onClick={handlePrev} disabled={currentIndex === 0}>
-              <ChevronLeft className="h-4 w-4 mr-1" />
+              <CaretLeft className="h-4 w-4 mr-1" />
               Zurück
             </Button>
 
             <div className="flex flex-col sm:flex-row gap-2">
               <Button variant="outline" onClick={resetProgress} size="sm">
-                <RotateCcw className="h-4 w-4 mr-1" />
+                <ArrowCounterClockwise className="h-4 w-4 mr-1" />
                 Neu starten
               </Button>
               <Button
@@ -292,7 +292,7 @@ const NegationExerciseSection = () => {
 
             <Button variant="outline" onClick={handleNext}>
               Weiter
-              <ChevronRight className="h-4 w-4 ml-1" />
+              <CaretRight className="h-4 w-4 ml-1" />
             </Button>
           </div>
 
