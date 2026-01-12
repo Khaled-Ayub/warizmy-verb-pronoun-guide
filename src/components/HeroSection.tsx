@@ -1,4 +1,4 @@
-import { ArrowDown, Ban, BookOpen, FileText, Layers, PenTool, Trophy } from "lucide-react";
+import { ArrowDown, Ban, BookOpen, FileText, Layers, PenTool, Target, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 
 /**
@@ -45,6 +45,14 @@ const featureCards = [
     description: "لا / لن / لم und Verbot",
     emoji: "⛔",
     href: "#negation",
+  },
+  {
+    icon: Target,
+    titleAr: "تمرين النفي",
+    title: "Verneinungs-Übung",
+    description: "Übe لا / لن / لم mit neuen Verben",
+    emoji: "🎯",
+    href: "#negation-exercises",
   },
   {
     icon: Trophy,

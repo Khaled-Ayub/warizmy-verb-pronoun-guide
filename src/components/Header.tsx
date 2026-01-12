@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BookOpen, GraduationCap, Home, Info, Menu, X } from "lucide-react";
+import { Ban, BookOpen, GraduationCap, Home, Info, Menu, Trophy, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logoBlue from "@/assets/logo-blue.png";
 
@@ -10,6 +10,8 @@ import logoBlue from "@/assets/logo-blue.png";
 const navItems = [
   { label: "الرئيسية", labelDe: "Startseite", href: "/", icon: Home },
   { label: "الأفعال والضمائر", labelDe: "Verben & Pronomen", href: "/#verbs", icon: GraduationCap },
+  { label: "النفي", labelDe: "Verneinung", href: "/#negation", icon: Ban },
+  { label: "تمرين النفي", labelDe: "Verneinungs-Übung", href: "/#negation-exercises", icon: Trophy },
   { label: "مدرب المفردات", labelDe: "Vokabeltrainer", href: "/vokabeltrainer", icon: BookOpen },
   { label: "معلومات عنا", labelDe: "Über uns", href: "/about", icon: Info },
 ];
@@ -52,7 +54,7 @@ const Header = () => {
 
           {/* Desktop Navigation - nur ab md sichtbar, zweisprachig */}
           <nav className="hidden md:block" dir="rtl">
-            <ul className="flex items-center gap-1 lg:gap-2">
+            <ul className="flex flex-wrap items-center justify-end gap-1 lg:gap-2">
               {navItems.map((item) => {
                 const active = isActive(item.href);
                 const isExternal = item.href.startsWith("#") || item.href.startsWith("/#");
