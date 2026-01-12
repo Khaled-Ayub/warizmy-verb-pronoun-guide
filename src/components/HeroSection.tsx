@@ -1,7 +1,19 @@
-import { ArrowDown, BookOpen, FileText, PenNib, Prohibit, Stack, Target, Trophy } from "@phosphor-icons/react";
+import {
+  ArrowDown,
+  BookOpen,
+  CaretLeft,
+  CaretRight,
+  FileText,
+  PenNib,
+  Prohibit,
+  Stack,
+  Target,
+  Trophy,
+} from "@phosphor-icons/react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 
-const featureCards = [
+const topics = [
   {
     icon: Stack,
     title: "Verbgrundlagen",
@@ -47,6 +59,12 @@ const featureCards = [
 ];
 
 const HeroSection = () => {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = (offset: number) => {
+    scrollRef.current?.scrollBy({ left: offset, behavior: "smooth" });
+  };
+
   return (
     <section className="relative overflow-hidden py-12 sm:py-16 md:py-24">
       {/* Hintergrund-Dekoration */}
@@ -55,107 +73,148 @@ const HeroSection = () => {
         <div className="absolute bottom-1/4 right-1/4 h-64 sm:h-96 w-64 sm:w-96 rounded-full bg-primary/5 blur-3xl" />
         {/* Geometrisches Muster */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 w-20 h-20 border-2 border-turquoise rotate-45" />
-          <div className="absolute top-1/3 right-20 w-16 h-16 border-2 border-primary rotate-12" />
-          <div className="absolute bottom-20 left-1/4 w-12 h-12 border-2 border-turquoise -rotate-12" />
+          <div className="absolute top-10 left-10 h-20 w-20 rotate-45 border-2 border-turquoise" />
+          <div className="absolute right-20 top-1/3 h-16 w-16 rotate-12 border-2 border-primary" />
+          <div className="absolute bottom-20 left-1/4 h-12 w-12 -rotate-12 border-2 border-turquoise" />
         </div>
       </div>
 
       <div className="container">
-        {/* Vertikales Layout - Inhalt untereinander */}
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Badge */}
-          <div className="animate-fade-up mb-6">
-            <span className="chip">Neue Lernseite</span>
-          </div>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="text-left">
+            <div className="animate-fade-up mb-5">
+              <span className="chip">Neue Lernseite</span>
+            </div>
 
-          {/* Hauptüberschrift - Deutsch */}
-          <h1 className="animate-fade-up animation-delay-100 mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary">
-            Arabische Grundlagen: Vokabeln, Grammatik & Morphismen
-          </h1>
+            <h1 className="animate-fade-up animation-delay-100 mb-3 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-primary">
+              Arabische Grundlagen lernen
+            </h1>
 
-          {/* Beschreibung - Deutsch */}
-          <p className="animate-fade-up animation-delay-200 mb-4 text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground max-w-2xl">
-            Eine verständliche Lerneinheit der Warizmy Akademie für grundlegende Vokabeln,
-            Grammatik und Morphismen - mit arabischen Beispielen und deutschen Übersetzungen.
-          </p>
-
-          {/* Beschreibung - Arabisch (kurz) */}
-          <p
-            className="animate-fade-up animation-delay-250 mb-8 font-arabic-sans text-sm text-muted-foreground/80 max-w-2xl"
-            dir="rtl"
-          >
-            دروس مبسطة في المفردات والنحو والصرف.
-          </p>
-
-          {/* Aktionsbuttons */}
-          <div className="animate-fade-up animation-delay-300 flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-12 w-full sm:w-auto">
-            <a
-              href="#verbs"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-turquoise to-turquoise-light px-6 sm:px-8 py-3 text-base font-semibold text-night-blue shadow-glow transition-all hover:shadow-xl hover:scale-105"
-            >
-              <span>Lernen starten</span>
-              <ArrowDown className="h-4 w-4 animate-bounce" />
-            </a>
-            <Link
-              to="/vokabeltrainer"
-              className="inline-flex items-center justify-center rounded-xl border-2 border-primary/20 px-6 sm:px-8 py-3 text-base font-semibold text-foreground hover:bg-primary/5 transition-all"
-            >
-              <span>Vokabeltrainer</span>
-            </Link>
-          </div>
-
-          {/* Schnellzugriff */}
-          <div className="animate-fade-up animation-delay-350 w-full text-center mb-6">
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              Schnellzugriff - Thema wählen
+            <p className="animate-fade-up animation-delay-200 mb-3 text-base sm:text-lg text-muted-foreground">
+              Vokabeln, Grammatik und Morphismen - klar, kompakt und mit Beispielen.
             </p>
+
+            <p
+              className="animate-fade-up animation-delay-250 mb-6 font-arabic-sans text-sm text-muted-foreground/80"
+              dir="rtl"
+            >
+              دروس مبسطة في المفردات والنحو والصرف.
+            </p>
+
+            <div className="animate-fade-up animation-delay-300 flex flex-wrap gap-3">
+              <a
+                href="#verbs"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-turquoise to-turquoise-light px-6 py-3 text-base font-semibold text-night-blue shadow-glow transition-all hover:shadow-xl hover:scale-105"
+              >
+                <span>Lernen starten</span>
+                <ArrowDown className="h-4 w-4 animate-bounce" />
+              </a>
+              <Link
+                to="/vokabeltrainer"
+                className="inline-flex items-center justify-center rounded-xl border-2 border-primary/20 px-6 py-3 text-base font-semibold text-foreground hover:bg-primary/5 transition-all"
+              >
+                <span>Vokabeltrainer</span>
+              </Link>
+            </div>
           </div>
 
-          {/* Feature-Karten - anklickbar */}
-          <div className="animate-fade-up animation-delay-400 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featureCards.map((card, index) => {
-              const isAnchor = card.href.startsWith("#") || card.href.startsWith("/#");
+          <div className="relative animate-fade-up animation-delay-200">
+            <div className="rounded-3xl border border-primary/10 bg-gradient-to-br from-background via-white to-secondary/10 p-6 shadow-card">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-turquoise/15">
+                  <BookOpen className="h-5 w-5 text-turquoise" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Heute lernen</p>
+                  <p className="text-xs text-muted-foreground">Arabische Grundlagen</p>
+                </div>
+              </div>
+
+              <div className="grid gap-3">
+                <div className="rounded-2xl border border-border bg-white/80 p-4">
+                  <p className="text-xs text-muted-foreground">Beispiel</p>
+                  <p
+                    dir="rtl"
+                    className="mt-1 font-arabic-display text-xl text-foreground text-right"
+                  >
+                    أقرأُ
+                  </p>
+                  <p className="text-sm text-foreground">ich lese</p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-2xl border border-border bg-white/80 p-4">
+                    <p className="text-xs text-muted-foreground">Fortschritt</p>
+                    <p className="mt-2 text-2xl font-bold text-primary">3/12</p>
+                  </div>
+                  <div className="rounded-2xl border border-border bg-white/80 p-4">
+                    <p className="text-xs text-muted-foreground">Streak</p>
+                    <p className="mt-2 text-2xl font-bold text-secondary">5 Tage</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -left-6 -bottom-6 hidden items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-xs text-foreground shadow-card sm:flex">
+              <Target className="h-4 w-4 text-turquoise" />
+              Übe täglich 5 Minuten
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-xs sm:text-sm text-muted-foreground">
+              Themenauswahl - wähle, was du lernen willst
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handleScroll(-240)}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 text-primary hover:bg-primary/5"
+                aria-label="Nach links scrollen"
+              >
+                <CaretLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => handleScroll(240)}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 text-primary hover:bg-primary/5"
+                aria-label="Nach rechts scrollen"
+              >
+                <CaretRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div
+            ref={scrollRef}
+            className="mt-3 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory"
+          >
+            {topics.map((topic) => {
+              const isAnchor = topic.href.startsWith("#") || topic.href.startsWith("/#");
+              const cardClasses =
+                "min-w-[180px] flex-shrink-0 snap-start rounded-2xl border border-border bg-card/80 px-4 py-3 transition-all hover:-translate-y-0.5 hover:shadow-card";
+
               const cardContent = (
                 <>
-                  {/* Icon in Kreis */}
-                  <div className="mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise/20 to-turquoise-light/20">
-                    <card.icon className="h-5 w-5 sm:h-6 sm:w-6 text-turquoise" />
+                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-turquoise/15">
+                    <topic.icon className="h-4 w-4 text-turquoise" />
                   </div>
-
-                  {/* Deutscher Titel */}
-                  <h3 className="mb-2 text-base sm:text-lg font-bold text-foreground">
-                    {card.title}
-                  </h3>
-
-                  {/* Beschreibung */}
-                  <p className="text-xs sm:text-sm text-muted-foreground">{card.description}</p>
+                  <p className="text-sm font-semibold text-foreground">{topic.title}</p>
+                  <p className="text-xs text-muted-foreground">{topic.description}</p>
                 </>
               );
 
-              const cardClasses =
-                "glass-card-hover glow-border p-4 sm:p-6 flex flex-col items-center text-center transition-all hover:scale-105";
-
               if (isAnchor) {
                 return (
-                  <a
-                    key={card.title}
-                    href={card.href}
-                    className={cardClasses}
-                    style={{ animationDelay: `${(index + 1) * 100}ms` }}
-                  >
+                  <a key={topic.title} href={topic.href} className={cardClasses}>
                     {cardContent}
                   </a>
                 );
               }
 
               return (
-                <Link
-                  key={card.title}
-                  to={card.href}
-                  className={cardClasses}
-                  style={{ animationDelay: `${(index + 1) * 100}ms` }}
-                >
+                <Link key={topic.title} to={topic.href} className={cardClasses}>
                   {cardContent}
                 </Link>
               );
