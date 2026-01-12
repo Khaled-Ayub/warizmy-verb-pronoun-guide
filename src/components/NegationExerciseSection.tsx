@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CheckCircle, ChevronLeft, ChevronRight, RotateCcw, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import {
   Select,
@@ -38,6 +39,15 @@ const endingVariants = [
 
 const ENDING_MARKS = /[\u064B\u064C\u064D\u064E\u064F\u0650\u0652]/g;
 
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 const extractPresent = (arabic: string): string => {
   const parts = arabic.split(/–|-/).map(part => part.trim()).filter(Boolean);
   return parts.length >= 2 ? parts[1] : arabic.trim();
@@ -51,8 +61,8 @@ const setEnding = (form: string, diacritic: string): string => {
   return form.slice(0, last.index) + diacritic + form.slice(last.index + 1);
 };
 
-const buildExercises = (): ExerciseItem[] => {
-  const verbs = vocabulary.verbs.slice(0, 12);
+const buildExercises = (count: number): ExerciseItem[] => {
+  const verbs = shuffleArray(vocabulary.verbs).slice(0, count);
   return verbs.map((verb, index) => {
     const variant = endingVariants[index % endingVariants.length];
     return {
@@ -66,12 +76,32 @@ const buildExercises = (): ExerciseItem[] => {
   });
 };
 
-const exercises = buildExercises();
-
 const NegationExerciseSection = () => {
+  const maxCount = vocabulary.verbs.length;
+  const minCount = Math.min(3, maxCount);
+  const initialCount = Math.min(9, maxCount);
+  const [exerciseCount, setExerciseCount] = useState(initialCount);
+  const [exerciseCountInput, setExerciseCountInput] = useState(String(initialCount));
+  const [exercises, setExercises] = useState<ExerciseItem[]>(() =>
+    buildExercises(initialCount)
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [learned, setLearned] = useState<Set<number>>(new Set());
+
+  const loadExercises = (count: number) => {
+    const safeCount = Math.max(minCount, Math.min(maxCount, count));
+    setExercises(buildExercises(safeCount));
+    setExerciseCount(safeCount);
+    setExerciseCountInput(String(safeCount));
+    setCurrentIndex(0);
+    setAnswers({});
+    setLearned(new Set());
+  };
+
+  if (exercises.length === 0) {
+    return null;
+  }
 
   const currentItem = exercises[currentIndex];
   const selected = answers[currentItem.id] ?? "";
@@ -99,9 +129,13 @@ const NegationExerciseSection = () => {
   };
 
   const resetProgress = () => {
-    setAnswers({});
-    setLearned(new Set());
-    setCurrentIndex(0);
+    loadExercises(exerciseCount);
+  };
+
+  const applyCount = () => {
+    const parsed = parseInt(exerciseCountInput, 10);
+    if (!Number.isFinite(parsed)) return;
+    loadExercises(parsed);
   };
 
   return (
@@ -122,11 +156,42 @@ const NegationExerciseSection = () => {
 
         <div className="space-y-8">
           <div className="glass-card p-4">
-            <div className="flex justify-between text-sm text-muted-foreground mb-2">
-              <span>Fortschritt: {learned.size} / {exercises.length} gelernt</span>
-              <span>{Math.round(progress)}%</span>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-muted-foreground">
+                <span>Fortschritt: {learned.size} / {exercises.length} gelernt</span>
+                <span>{Math.round(progress)}%</span>
+              </div>
+              <Progress value={progress} className="h-2" />
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span>Anzahl:</span>
+                  <Input
+                    type="number"
+                    min={minCount}
+                    max={maxCount}
+                    value={exerciseCountInput}
+                    onChange={event => setExerciseCountInput(event.target.value)}
+                    onKeyDown={event => {
+                      if (event.key === "Enter") {
+                        applyCount();
+                      }
+                    }}
+                    className="w-24"
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    (min {minCount}, max {maxCount})
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="outline" size="sm" onClick={applyCount}>
+                    Übernehmen
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={resetProgress}>
+                    Neu mischen
+                  </Button>
+                </div>
+              </div>
             </div>
-            <Progress value={progress} className="h-2" />
           </div>
 
           <div className="glass-card p-6 sm:p-8">
@@ -218,7 +283,7 @@ const NegationExerciseSection = () => {
               <Button
                 onClick={markAsLearned}
                 className="bg-emerald-500 hover:bg-emerald-600 text-white"
-                disabled={!hasAnswer || !isCorrect || learned.has(currentItem.id)}
+                disabled={!hasAnswer || learned.has(currentItem.id)}
               >
                 <CheckCircle className="h-4 w-4 mr-1" />
                 Gelernt
