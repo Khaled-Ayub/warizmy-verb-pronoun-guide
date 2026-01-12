@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ElementType } from "react";
 import {
   BookOpen,
   CaretDown,
@@ -16,22 +16,259 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import logoBlue from "@/assets/logo-blue.png";
 
-const grammarItems = [
+type MenuItem = {
+  label: string;
+  href: string;
+  icon: ElementType;
+};
+
+type TopicItem = {
+  labelAr: string;
+  labelDe: string;
+  number?: number;
+};
+
+const grammarItems: MenuItem[] = [
   { label: "Verbgrundlagen", href: "/#verbs", icon: Stack },
   { label: "Verbarten", href: "/#verb-types", icon: GraduationCap },
   { label: "Pronomen", href: "/#pronouns", icon: BookOpen },
   { label: "Verneinung", href: "/#negation", icon: Prohibit },
 ];
 
-const morphismItems = [
+const morphismItems: MenuItem[] = [
   { label: "Konjugation", href: "/#conjugation", icon: PenNib },
   { label: "Verneinungs-Übung", href: "/#negation-exercises", icon: Trophy },
   { label: "Übungen", href: "/vokabeltrainer", icon: Target },
 ];
 
+const grammarTopicItems: TopicItem[] = [
+  { labelAr: "بَابُ الْكَلَامِ", labelDe: "Kapitel: Der Satz" },
+  { labelAr: "بَابُ الْإِعْرَابِ", labelDe: "Kapitel: I'rab (Flexion)" },
+  { labelAr: "بَابُ عَلَامَاتِ الْإِعْرَابِ", labelDe: "Kapitel: Zeichen des I'rab" },
+  { labelAr: "بَابُ عَلَامَاتِ النَّصْبِ", labelDe: "Kapitel: Zeichen des Akkusativs (Nasb)" },
+  { labelAr: "بَابُ عَلَامَاتِ الْخَفْضِ", labelDe: "Kapitel: Zeichen des Genitivs (Khafd)" },
+  { labelAr: "بَابُ عَلَامَاتِ الْجَزْمِ", labelDe: "Kapitel: Zeichen des Jussivs (Jazm)" },
+  {
+    labelAr: "فَصْلٌ في المعرب بالحروف والحركات",
+    labelDe: "Abschnitt: Deklinierbares mit Buchstaben und Vokalendungen",
+  },
+  { labelAr: "فائدة: المحل في الإعراب", labelDe: "Exkurs: Der Platz im I'rab" },
+  { labelAr: "بَابُ الْمَعْرِفَةِ وَالنَّكِرَةِ", labelDe: "Kapitel: Bestimmt und unbestimmt" },
+  { labelAr: "بَابُ الْأَفْعَالِ", labelDe: "Kapitel: Verben" },
+  { labelAr: "بَابُ إِعْرَابِ الْفِعْلِ", labelDe: "Kapitel: I'rab des Verbs" },
+  { labelAr: "بَابُ مَرْفُوعَاتِ الْأَسْمَاءِ", labelDe: "Kapitel: Nominative der Nomen" },
+  { labelAr: "بَابُ نَائِبِ الْفَاعِلِ", labelDe: "Kapitel: Stellvertreter des Subjekts" },
+  { labelAr: "بَابُ الْمُبْتَدَأِ وَالْخَبَرِ", labelDe: "Kapitel: Subjekt und Prädikat" },
+  { labelAr: "كَانَ وَأَخَوَاتُهَا", labelDe: "Kana und ihre Schwestern" },
+  { labelAr: "إِنَّ وَأَخَوَاتُهَا", labelDe: "Inna und ihre Schwestern" },
+  { labelAr: "ظَنَّ وَأَخَوَاتُهَا", labelDe: "Zanna und ihre Schwestern" },
+  { labelAr: "بَابُ النَّعْتِ", labelDe: "Kapitel: Attribut (Na't)" },
+  { labelAr: "بَابُ الْعَطْفِ", labelDe: "Kapitel: Koordination (Atf)" },
+  { labelAr: "بَابُ التَّوْكِيدِ", labelDe: "Kapitel: Bekräftigung (Tawkid)" },
+  { labelAr: "بَابُ الْبَدَلِ", labelDe: "Kapitel: Apposition (Badal)" },
+  { labelAr: "بَابُ مَنْصُوبَاتِ الْأَسْمَاءِ", labelDe: "Kapitel: Akkusative der Nomen" },
+  { labelAr: "بَابُ الْمَصْدَرِ", labelDe: "Kapitel: Masdar (Verbalnomen)" },
+  { labelAr: "بَابُ الظَّرْفِ", labelDe: "Kapitel: Adverbial (Zarf)" },
+  { labelAr: "بَابُ الْحَالِ", labelDe: "Kapitel: Umstand (Hal)" },
+  { labelAr: "بَابُ التَّمْيِيزِ", labelDe: "Kapitel: Spezifizierung (Tamyiz)" },
+  { labelAr: "بَابُ الِاسْتِثْنَاءِ", labelDe: "Kapitel: Ausnahme (Istithna')" },
+  { labelAr: "بَابُ لَا الْعَامِلَةِ عَمَلَ إِنَّ", labelDe: "Kapitel: La, die wie Inna wirkt" },
+  { labelAr: "بَابُ النِّدَاءِ", labelDe: "Kapitel: Anrufung (Nida')" },
+  { labelAr: "بَابُ الْمَفْعُولِ لِأَجْلِهِ", labelDe: "Kapitel: Zweckobjekt (Maf'ul li-ajlih)" },
+  { labelAr: "بَابُ الْمَفْعُولِ مَعَهُ", labelDe: "Kapitel: Begleitobjekt (Maf'ul ma'ahu)" },
+  { labelAr: "بَابُ مَخْفُوضَاتِ الْأَسْمَاءِ", labelDe: "Kapitel: Genitive der Nomen" },
+  { labelAr: "بَابُ الْإِضَافَةِ", labelDe: "Kapitel: Idafa (Genitivkonstruktion)" },
+  { labelAr: "بَابُ الْاِشْتِغَالِ", labelDe: "Kapitel: Ishtighal" },
+  { labelAr: "بَابُ التَّنَازُعِ", labelDe: "Kapitel: Tanazu'" },
+  { labelAr: "بَابُ التَّعَجُبِ", labelDe: "Kapitel: Verwunderung (Ta'ajjub)" },
+  { labelAr: "بَابُ العَدَدِ", labelDe: "Kapitel: Zahl" },
+  { labelAr: "بَابُ الوَقْفِ", labelDe: "Kapitel: Waqf (Pausenregeln)" },
+  { labelAr: "خَاتِمَةٌ نَسْأَلُ اللهَ حُسْنَهَا", labelDe: "Abschluss: Wir bitten Allah um Güte" },
+];
+
+const morphismTopicItems: TopicItem[] = [
+  {
+    number: 1,
+    labelAr: "فَعَلَ يَفْعُلُ",
+    labelDe: "Grundform Form I, Untertyp a u (z. B. نَصَرَ يَنْصُرُ)",
+  },
+  {
+    number: 2,
+    labelAr: "فَعَلَ يَفْعِلُ",
+    labelDe: "Grundform Form I, Untertyp a i (z. B. ضَرَبَ يَضْرِبُ)",
+  },
+  {
+    number: 3,
+    labelAr: "فَعَلَ يَفْعَلُ",
+    labelDe: "Grundform Form I, Untertyp a a (z. B. فَتَحَ يَفْتَحُ)",
+  },
+  {
+    number: 4,
+    labelAr: "فَعِلَ يَفْعَلُ",
+    labelDe: "Grundform Form I, Untertyp i a (z. B. عَلِمَ يَعْلَمُ)",
+  },
+  {
+    number: 5,
+    labelAr: "فَعُلَ يَفْعُلُ",
+    labelDe: "Grundform Form I, Untertyp u u (z. B. حَسُنَ يَحْسُنُ)",
+  },
+  {
+    number: 6,
+    labelAr: "فَعِلَ يَفْعِلُ",
+    labelDe: "Grundform Form I, Untertyp i i (z. B. حَسِبَ يَحْسِبُ)",
+  },
+  {
+    number: 7,
+    labelAr: "أَفْعَلَ يُفْعِلُ",
+    labelDe: "Form IV (أَفْعَلَ), Kausativ, oft „jemanden etwas tun lassen“ (z. B. أَكْرَمَ يُكْرِمُ)",
+  },
+  {
+    number: 8,
+    labelAr: "فَعَّلَ يُفَعِّلُ",
+    labelDe: "Form II (Verdopplung), Intensivierung oder Kausativ (z. B. فَرَّحَ يُفَرِّحُ)",
+  },
+  {
+    number: 9,
+    labelAr: "فَاعَلَ يُفَاعِلُ",
+    labelDe: "Form III, meist gegenseitige Handlung oder Beteiligung (z. B. قَاتَلَ يُقَاتِلُ)",
+  },
+  {
+    number: 10,
+    labelAr: "اِنْفَعَلَ يَنْفَعِلُ",
+    labelDe: "Form VII, oft passivnah oder مطاوعة (z. B. اِنْكَسَرَ يَنْكَسِرُ)",
+  },
+  {
+    number: 11,
+    labelAr: "اِفْتَعَلَ يَفْتَعِلُ",
+    labelDe: "Form VIII, oft reflexiv, „sich aneignen / sich zusammenfinden“ (z. B. اِجْتَمَعَ يَجْتَمِعُ)",
+  },
+  {
+    number: 12,
+    labelAr: "اِفْعَلَّ يَفْعَلُّ",
+    labelDe: "Form IX, meist Farben und körperliche Merkmale (z. B. اِحْمَرَّ يَحْمَرُّ)",
+  },
+  {
+    number: 13,
+    labelAr: "تَفَعَّلَ يَتَفَعَّلُ",
+    labelDe: "Form V, reflexiv zu Form II (z. B. تَكَلَّمَ يَتَكَلَّمُ)",
+  },
+  {
+    number: 14,
+    labelAr: "تَفَاعَلَ يَتَفَاعَلُ",
+    labelDe: "Form VI, gegenseitig zu Form III (z. B. تَصَالَحَ يَتَصَالَحُ)",
+  },
+  {
+    number: 15,
+    labelAr: "اِسْتَفْعَلَ يَسْتَفْعِلُ",
+    labelDe:
+      "Form X, oft „um etwas bitten / etwas suchen“ (z. B. اِسْتَغْفَرَ) oder Kausativ (z. B. اِسْتَخْرَجَ)",
+  },
+  {
+    number: 16,
+    labelAr: "اِفْعَوْعَلَ يَفْعَوْعِلُ",
+    labelDe: "Erweiterte Form, selten, Intensivierung bei Zuständen (z. B. اِعْشَوْشَبَ يَعْشَوْشِبُ)",
+  },
+  {
+    number: 17,
+    labelAr: "اِفْعَوَّلَ يَفْعَوِّلُ",
+    labelDe: "Erweiterte Form, selten, Intensivierung (z. B. اِجْلَوَّذَ يَجْلَوِّذُ)",
+  },
+  {
+    number: 18,
+    labelAr: "اِفْعَالَّ يَفْعَالُّ",
+    labelDe: "Erweiterte Form, selten, starke Intensivierung (z. B. اِحْمَارَّ يَحْمَارُّ)",
+  },
+  {
+    number: 19,
+    labelAr: "فَعْلَلَ يُفَعْلِلُ",
+    labelDe: "Quadriliteral, vierkonsonantige Grundform (z. B. دَحْرَجَ يُدَحْرِجُ)",
+  },
+  {
+    number: 20,
+    labelAr: "فَوْعَلَ يُفَوْعِلُ",
+    labelDe: "Anhang zum رباعي, Muster mit و nach dem 1. Radikal (z. B. حَوْقَلَ يُحَوْقِلُ)",
+  },
+  {
+    number: 21,
+    labelAr: "فَيْعَلَ يُفَيْعِلُ",
+    labelDe: "Anhang zum رباعي, Muster mit ي nach dem 1. Radikal (z. B. بَيْطَرَ يُبَيْطِرُ)",
+  },
+  {
+    number: 22,
+    labelAr: "فَعْوَلَ يُفَعْوِلُ",
+    labelDe: "Anhang zum رباعي, Muster mit و vor dem letzten Radikal (z. B. جَهْوَرَ يُجَهْوِرُ)",
+  },
+  {
+    number: 23,
+    labelAr: "فَعْيَلَ يُفَعْيِلُ",
+    labelDe: "Anhang zum رباعي, Muster mit ي vor dem letzten Radikal (z. B. عَثْيَرَ يُعَثْيِرُ)",
+  },
+  {
+    number: 24,
+    labelAr: "فَعْلَلَ يُفَعْلِلُ",
+    labelDe: "Anhang zum رباعي, Verdopplung des letzten Radikals (z. B. جَلْبَبَ يُجَلْبِبُ)",
+  },
+  {
+    number: 25,
+    labelAr: "فَعْلَى يُفَعْلِي",
+    labelDe: "Anhang zum رباعي, Zusatz ي am Ende (z. B. سَلْقَى يُسَلْقِي)",
+  },
+  {
+    number: 26,
+    labelAr: "تَفَعْلَلَ يَتَفَعْلَلُ",
+    labelDe: "رباعي mit Zusatz ت am Anfang (z. B. تَدَحْرَجَ يَتَدَحْرَجُ)",
+  },
+  {
+    number: 27,
+    labelAr: "اِفْعَنْلَلَ يَفْعَنْلِلُ",
+    labelDe: "رباعي mit zwei Zusätzen, darunter ن im Inneren (z. B. اِحْرَنْجَمَ يَحْرَنْجِمُ)",
+  },
+  {
+    number: 28,
+    labelAr: "اِفْعَلَلَّ يَفْعَلِلُّ",
+    labelDe: "رباعي mit starker Intensivierung (z. B. اِقْشَعَرَّ يَقْشَعِرُّ)",
+  },
+  {
+    number: 29,
+    labelAr: "تَفَعْلَلَ يَتَفَعْلَلُ",
+    labelDe: "Anhang zu تَدَحْرَجَ (z. B. تَجَلْبَبَ يَتَجَلْبَبُ)",
+  },
+  {
+    number: 30,
+    labelAr: "تَفَوْعَلَ يَتَفَوْعَلُ",
+    labelDe: "Anhang, mit و nach dem 1. Radikal (z. B. تَجَوْرَبَ يَتَجَوْرَبُ)",
+  },
+  {
+    number: 31,
+    labelAr: "تَفَيْعَلَ يَتَفَيْعَلُ",
+    labelDe: "Anhang, mit ي nach dem 1. Radikal (z. B. تَشَيْطَنَ يَتَشَيْطَنُ)",
+  },
+  {
+    number: 32,
+    labelAr: "تَفَعْوَلَ يَتَفَعْوَلُ",
+    labelDe: "Anhang, mit و vor dem letzten Radikal (z. B. تَرَهْوَكَ يَتَرَهْوَكُ)",
+  },
+  {
+    number: 33,
+    labelAr: "تَفَعْلَى يَتَفَعْلَى",
+    labelDe: "Anhang, Zusatz ي am Ende (z. B. تَسَلْقَى يَتَسَلْقَى)",
+  },
+  {
+    number: 34,
+    labelAr: "اِفْعَنْلَلَ يَفْعَنْلِلُ",
+    labelDe: "Anhang zu diesem Muster (z. B. اِقْعَنْسَسَ يَقْعَنْسِسُ)",
+  },
+  {
+    number: 35,
+    labelAr: "اِفْعَنْلَى يَفْعَنْلِي",
+    labelDe: "Anhang mit Endung ى / ي (z. B. اِسْلَنْقَى يَسْلَنْقِي)",
+  },
+];
+
 const Header = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
 
   const isActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
@@ -43,7 +280,7 @@ const Header = () => {
     setMobileMenuOpen(false);
   };
 
-  const renderItem = (item: { label: string; href: string; icon: React.ElementType }) => {
+  const renderItem = (item: MenuItem) => {
     const active = isActive(item.href);
     const isAnchor = item.href.startsWith("#") || item.href.startsWith("/#");
     const classes = `flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all ${
@@ -67,23 +304,45 @@ const Header = () => {
     );
   };
 
+  const renderTopic = (topic: TopicItem) => (
+    <div
+      key={`${topic.number ?? "g"}-${topic.labelAr}`}
+      className="rounded-xl border border-border/70 bg-white/70 px-3 py-2"
+    >
+      <div className="flex items-start gap-2">
+        {topic.number !== undefined && (
+          <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-[10px] font-semibold text-primary">
+            {topic.number}
+          </span>
+        )}
+        <div className="min-w-0 flex-1">
+          <span className="block text-right font-arabic-display text-sm text-foreground" dir="rtl">
+            {topic.labelAr}
+          </span>
+          <span className="block text-[11px] text-muted-foreground">{topic.labelDe}</span>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <header className="sticky top-0 z-50 w-full">
-      <div className="glass-card mx-2 mt-2 rounded-2xl sm:mx-4 sm:mt-4">
-        <div className="container flex items-center justify-between py-3 sm:py-4">
-          <Link to="/" className="flex items-center gap-2 sm:gap-3">
-            <img src={logoBlue} alt="Warizmy Akademie Logo" className="h-10 w-10 sm:h-12 sm:w-12" />
-            <div className="flex flex-col">
-              <span className="font-arabic-display text-base font-bold text-primary sm:text-lg">
-                Warizmy Akademie
-              </span>
-              <span className="hidden text-xs text-muted-foreground sm:block">
-                Arabische Grundlagen
-              </span>
-            </div>
-          </Link>
+      <div
+        className="glass-card mx-2 mt-2 rounded-2xl sm:mx-4 sm:mt-4"
+        onMouseLeave={() => setDesktopMenuOpen(false)}
+      >
+        <div className="container grid grid-cols-[1fr_auto_1fr] items-center py-3 sm:py-4">
+          <div className="flex items-center justify-start">
+            <button
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted transition-colors hover:bg-muted/80 lg:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <List className="h-5 w-5" />}
+            </button>
+          </div>
 
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center justify-center gap-2">
             {renderItem({ label: "Startseite", href: "/", icon: House })}
 
             <div className="relative group">
@@ -96,22 +355,45 @@ const Header = () => {
                 <CaretDown className="h-4 w-4" />
               </button>
 
-              <div className="absolute left-1/2 top-full z-50 mt-3 w-[560px] -translate-x-1/2 rounded-2xl border border-border bg-background/95 p-5 shadow-card opacity-0 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100">
-                <div className="grid gap-6 sm:grid-cols-2">
+              <div className="absolute left-1/2 top-full z-50 mt-3 w-[900px] -translate-x-1/2 rounded-2xl border border-border bg-background/95 p-5 shadow-card opacity-0 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100">
+                <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
                   <div>
                     <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      Grammatik
+                      Aktuell
                     </p>
-                    <div className="flex flex-col gap-2">
-                      {grammarItems.map((item) => renderItem(item))}
+                    <div>
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        Grammatik
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        {grammarItems.map((item) => renderItem(item))}
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        Morphismen
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        {morphismItems.map((item) => renderItem(item))}
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      Morphismen
-                    </p>
-                    <div className="flex flex-col gap-2">
-                      {morphismItems.map((item) => renderItem(item))}
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    <div>
+                      <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        Grammatikthemen
+                      </p>
+                      <div className="grid max-h-72 gap-2 overflow-y-auto pr-2">
+                        {grammarTopicItems.map((topic) => renderTopic(topic))}
+                      </div>
+                    </div>
+                    <div>
+                      <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        Morphismenthemen
+                      </p>
+                      <div className="grid max-h-72 gap-2 overflow-y-auto pr-2">
+                        {morphismTopicItems.map((topic) => renderTopic(topic))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -122,13 +404,20 @@ const Header = () => {
             {renderItem({ label: "Über uns", href: "/about", icon: Info })}
           </nav>
 
-          <button
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted transition-colors hover:bg-muted/80 lg:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
+          <Link
+            to="/"
+            className="flex items-center justify-self-end gap-2 sm:gap-3 flex-row-reverse text-right"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <List className="h-5 w-5" />}
-          </button>
+            <img src={logoBlue} alt="Warizmy Akademie Logo" className="h-10 w-10 sm:h-12 sm:w-12" />
+            <div className="flex flex-col">
+              <span className="font-arabic-display text-base font-bold text-primary sm:text-lg">
+                Warizmy Akademie
+              </span>
+              <span className="hidden text-xs text-muted-foreground sm:block">
+                Arabische Grundlagen
+              </span>
+            </div>
+          </Link>
         </div>
 
         {mobileMenuOpen && (
@@ -138,6 +427,10 @@ const Header = () => {
                 {renderItem({ label: "Startseite", href: "/", icon: House })}
 
                 <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Aktuell
+                </div>
+
+                <div className="pt-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                   Grammatik
                 </div>
                 <div className="space-y-2">
@@ -168,7 +461,7 @@ const Header = () => {
                   })}
                 </div>
 
-                <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <div className="pt-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                   Morphismen
                 </div>
                 <div className="space-y-2">
@@ -201,6 +494,20 @@ const Header = () => {
 
                 {renderItem({ label: "Vokabeltrainer", href: "/vokabeltrainer", icon: BookOpen })}
                 {renderItem({ label: "Über uns", href: "/about", icon: Info })}
+
+                <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Grammatikthemen
+                </div>
+                <div className="grid max-h-64 gap-2 overflow-y-auto pr-1">
+                  {grammarTopicItems.map((topic) => renderTopic(topic))}
+                </div>
+
+                <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Morphismenthemen
+                </div>
+                <div className="grid max-h-64 gap-2 overflow-y-auto pr-1">
+                  {morphismTopicItems.map((topic) => renderTopic(topic))}
+                </div>
               </div>
             </nav>
           </div>
