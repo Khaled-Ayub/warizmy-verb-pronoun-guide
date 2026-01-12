@@ -345,59 +345,23 @@ const Header = () => {
           <nav className="hidden lg:flex items-center justify-center gap-2">
             {renderItem({ label: "Startseite", href: "/", icon: House })}
 
-            <div className="relative group">
+            <div className="relative">
               <button
                 type="button"
                 className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-foreground transition-all hover:bg-muted"
                 aria-haspopup="true"
+                aria-expanded={desktopMenuOpen}
+                onMouseEnter={() => setDesktopMenuOpen(true)}
+                onFocus={() => setDesktopMenuOpen(true)}
+                onClick={() => setDesktopMenuOpen((open) => !open)}
               >
                 Lernen
-                <CaretDown className="h-4 w-4" />
+                <CaretDown
+                  className={`h-4 w-4 transition-transform ${
+                    desktopMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-
-              <div className="absolute left-1/2 top-full z-50 mt-3 w-[900px] -translate-x-1/2 rounded-2xl border border-border bg-background/95 p-5 shadow-card opacity-0 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100">
-                <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
-                  <div>
-                    <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      Aktuell
-                    </p>
-                    <div>
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                        Grammatik
-                      </p>
-                      <div className="flex flex-col gap-2">
-                        {grammarItems.map((item) => renderItem(item))}
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                        Morphismen
-                      </p>
-                      <div className="flex flex-col gap-2">
-                        {morphismItems.map((item) => renderItem(item))}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="grid gap-4 lg:grid-cols-2">
-                    <div>
-                      <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                        Grammatikthemen
-                      </p>
-                      <div className="grid max-h-72 gap-2 overflow-y-auto pr-2">
-                        {grammarTopicItems.map((topic) => renderTopic(topic))}
-                      </div>
-                    </div>
-                    <div>
-                      <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                        Morphismenthemen
-                      </p>
-                      <div className="grid max-h-72 gap-2 overflow-y-auto pr-2">
-                        {morphismTopicItems.map((topic) => renderTopic(topic))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {renderItem({ label: "Vokabeltrainer", href: "/vokabeltrainer", icon: BookOpen })}
@@ -418,6 +382,57 @@ const Header = () => {
               </span>
             </div>
           </Link>
+        </div>
+
+        <div
+          className={`hidden lg:block overflow-hidden border-t border-border/50 transition-[max-height,opacity] duration-200 ${
+            desktopMenuOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+          }`}
+          onMouseEnter={() => setDesktopMenuOpen(true)}
+        >
+          <div className="container py-5">
+            <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Aktuell
+                </p>
+                <div>
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    Grammatik
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {grammarItems.map((item) => renderItem(item))}
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    Morphismen
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {morphismItems.map((item) => renderItem(item))}
+                  </div>
+                </div>
+              </div>
+              <div className="grid gap-4 lg:grid-cols-2">
+                <div>
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Grammatikthemen
+                  </p>
+                  <div className="grid max-h-72 gap-2 overflow-y-auto pr-2">
+                    {grammarTopicItems.map((topic) => renderTopic(topic))}
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Morphismenthemen
+                  </p>
+                  <div className="grid max-h-72 gap-2 overflow-y-auto pr-2">
+                    {morphismTopicItems.map((topic) => renderTopic(topic))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {mobileMenuOpen && (
