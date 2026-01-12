@@ -4,6 +4,7 @@ import VerbBasicsSection from "@/components/VerbBasicsSection";
 import VerbTypesSection from "@/components/VerbTypesSection";
 import PronounsSection from "@/components/PronounsSection";
 import ConjugationSection from "@/components/ConjugationSection";
+import NegationExerciseSection from "@/components/NegationExerciseSection";
 import LearningTipSection from "@/components/LearningTipSection";
 import Footer from "@/components/Footer";
 
@@ -17,6 +18,7 @@ const Index = () => {
         <VerbTypesSection />
         <PronounsSection />
         <ConjugationSection />
+        <NegationExerciseSection />
         <LearningTipSection />
       </main>
       <Footer />
