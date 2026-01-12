@@ -1,65 +1,47 @@
 import { ArrowDown, BookOpen, FileText, PenNib, Prohibit, Stack, Target, Trophy } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 
-/**
- * Feature-Karten für die Übersicht
- * Jede Karte hat einen arabischen und deutschen Titel
- */
 const featureCards = [
   {
     icon: Stack,
-    titleAr: "مبادئ الأفعال",
     title: "Verbgrundlagen",
-    description: "Einfacher Einstieg in die Zeiten",
-    emoji: "🧱",
+    description: "Einstieg in die Zeiten",
     href: "#verbs",
   },
   {
     icon: BookOpen,
-    titleAr: "أنواع الأفعال",
     title: "Verbarten",
     description: "Vergangenheit, Gegenwart & Imperativ",
-    emoji: "📚",
     href: "#verb-types",
   },
   {
     icon: FileText,
-    titleAr: "الضمائر",
     title: "Pronomen",
     description: "Getrennte und verbundene Pronomen",
-    emoji: "👤",
     href: "#pronouns",
   },
   {
     icon: PenNib,
-    titleAr: "جداول التصريف",
     title: "Konjugation",
     description: "Übersichtliche Konjugationstabellen",
-    emoji: "✏️",
     href: "#conjugation",
   },
   {
     icon: Prohibit,
-    titleAr: "النفي",
     title: "Verneinung",
-    description: "لا / لن / لم und Verbot",
-    emoji: "⛔",
+    description: "Negationspartikel und Verbot",
     href: "#negation",
   },
   {
     icon: Target,
-    titleAr: "تمرين النفي",
     title: "Verneinungs-Übung",
-    description: "Übe لا / لن / لم mit neuen Verben",
-    emoji: "🎯",
+    description: "Übe mit neuen Verben",
     href: "#negation-exercises",
   },
   {
     icon: Trophy,
-    titleAr: "تمارين وتدريب",
     title: "Übungen",
     description: "Wiederhole und festige dein Wissen",
-    emoji: "🏆",
     href: "/vokabeltrainer",
   },
 ];
@@ -82,38 +64,28 @@ const HeroSection = () => {
       <div className="container">
         {/* Vertikales Layout - Inhalt untereinander */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          
           {/* Badge */}
           <div className="animate-fade-up mb-6">
-            <span className="chip">
-              ? Neue Lernseite
-            </span>
+            <span className="chip">Neue Lernseite</span>
           </div>
 
-          {/* Hauptüberschrift - Arabisch */}
-          <h1 
-            className="animate-fade-up animation-delay-100 mb-4 font-arabic-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-turquoise" 
-            dir="rtl"
-          >
-            تعلم أساسيات العربية: المفردات، النحو، والصرف
-          </h1>
-
           {/* Hauptüberschrift - Deutsch */}
-          <h2 className="animate-fade-up animation-delay-150 mb-6 text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
+          <h1 className="animate-fade-up animation-delay-100 mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary">
             Arabische Grundlagen: Vokabeln, Grammatik & Morphismen
-          </h2>
+          </h1>
 
           {/* Beschreibung - Deutsch */}
           <p className="animate-fade-up animation-delay-200 mb-4 text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground max-w-2xl">
-            Eine verst?ndliche Lerneinheit der Warizmy Akademie f?r grundlegende Vokabeln, Grammatik und Morphismen ? mit arabischen Beispielen und deutschen ?bersetzungen.
+            Eine verständliche Lerneinheit der Warizmy Akademie für grundlegende Vokabeln,
+            Grammatik und Morphismen - mit arabischen Beispielen und deutschen Übersetzungen.
           </p>
 
-          {/* Beschreibung - Arabisch */}
-          <p 
-            className="animate-fade-up animation-delay-250 mb-8 font-arabic-sans text-sm sm:text-base text-muted-foreground/80 max-w-2xl" 
+          {/* Beschreibung - Arabisch (kurz) */}
+          <p
+            className="animate-fade-up animation-delay-250 mb-8 font-arabic-sans text-sm text-muted-foreground/80 max-w-2xl"
             dir="rtl"
           >
-            درس مبسط يشرح أنواع الأفعال وجداول التصريف والضمائر بالعربية مع ترجمة ألمانية.
+            دروس مبسطة في المفردات والنحو والصرف.
           </p>
 
           {/* Aktionsbuttons */}
@@ -122,22 +94,21 @@ const HeroSection = () => {
               href="#verbs"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-turquoise to-turquoise-light px-6 sm:px-8 py-3 text-base font-semibold text-night-blue shadow-glow transition-all hover:shadow-xl hover:scale-105"
             >
-              <span dir="rtl" className="font-arabic-display">ابدأ التعلم</span>
-              <span>– Lernen starten</span>
+              <span>Lernen starten</span>
               <ArrowDown className="h-4 w-4 animate-bounce" />
             </a>
             <Link
               to="/vokabeltrainer"
               className="inline-flex items-center justify-center rounded-xl border-2 border-primary/20 px-6 sm:px-8 py-3 text-base font-semibold text-foreground hover:bg-primary/5 transition-all"
             >
-              <span>📖 Vokabeltrainer</span>
+              <span>Vokabeltrainer</span>
             </Link>
           </div>
 
-          {/* Themenauswahl - schnelle Navigation */}
+          {/* Schnellzugriff */}
           <div className="animate-fade-up animation-delay-350 w-full text-center mb-6">
-            <p className="text-sm sm:text-base font-medium text-muted-foreground">
-              Themenauswahl – wähle, was du lernen willst
+            <p className="text-xs sm:text-sm text-muted-foreground">
+              Schnellzugriff - Thema wählen
             </p>
           </div>
 
@@ -147,18 +118,10 @@ const HeroSection = () => {
               const isAnchor = card.href.startsWith("#") || card.href.startsWith("/#");
               const cardContent = (
                 <>
-                  {/* Emoji Icon */}
-                  <div className="text-3xl sm:text-4xl mb-3">{card.emoji}</div>
-
                   {/* Icon in Kreis */}
                   <div className="mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-turquoise/20 to-turquoise-light/20">
                     <card.icon className="h-5 w-5 sm:h-6 sm:w-6 text-turquoise" />
                   </div>
-
-                  {/* Arabischer Titel */}
-                  <p className="mb-1 font-arabic-display text-sm sm:text-base text-turquoise" dir="rtl">
-            وحدة تعلم مبسطة من أكاديمية وارزمي لتعلم المفردات الأساسية، قواعد النحو ومبادئ الصرف مع أمثلة عربية وترجمة ألمانية.
-          </p>
 
                   {/* Deutscher Titel */}
                   <h3 className="mb-2 text-base sm:text-lg font-bold text-foreground">
