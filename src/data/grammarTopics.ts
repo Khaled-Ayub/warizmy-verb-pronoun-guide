@@ -52,5 +52,5 @@ const rawGrammarTopics = [
 
 export const grammarTopicItems: GrammarTopic[] = rawGrammarTopics.map((topic) => ({
   ...topic,
-  href: `/grammatik/kapitel-${topic.number}`,
+  href: `/grammatik/kapitel/${topic.number}`,
 }));

@@ -29,7 +29,7 @@ const App = () => (
           {/* Vokabeltrainer mit Quiz */}
           <Route path="/vokabeltrainer" element={<VocabularyTrainer />} />
           {/* Grammatik-Kapitel */}
-          <Route path="/grammatik/kapitel-:chapterNumber" element={<GrammarChapter />} />
+          <Route path="/grammatik/kapitel/:chapterNumber" element={<GrammarChapter />} />
           {/* Über uns */}
           <Route path="/about" element={<About />} />
           {/* 404 - Seite nicht gefunden */}

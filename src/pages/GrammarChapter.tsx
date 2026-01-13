@@ -1,5 +1,7 @@
 import { CaretLeft } from "@phosphor-icons/react";
 import { Link, useParams } from "react-router-dom";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { grammarTopicItems } from "@/data/grammarTopics";
 
 const fullSpeechExamples = [
@@ -60,27 +62,23 @@ const GrammarChapter = () => {
   const chapter = grammarTopicItems.find((item) => item.number === parsedNumber);
   const isChapterOne = parsedNumber === 1;
 
-  if (!chapter || Number.isNaN(parsedNumber)) {
-    return (
-      <section className="py-16">
-        <div className="container max-w-3xl text-left">
-          <h1 className="text-3xl font-bold text-primary">Kapitel nicht gefunden</h1>
-          <p className="mt-3 text-muted-foreground">
-            Dieses Kapitel ist aktuell nicht verfügbar.
-          </p>
-          <Link
-            to="/"
-            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80"
-          >
-            <CaretLeft className="h-4 w-4" />
-            Zurück zur Startseite
-          </Link>
-        </div>
-      </section>
-    );
-  }
-
-  return (
+  const content = !chapter || Number.isNaN(parsedNumber) ? (
+    <section className="py-16">
+      <div className="container max-w-3xl text-left">
+        <h1 className="text-3xl font-bold text-primary">Kapitel nicht gefunden</h1>
+        <p className="mt-3 text-muted-foreground">
+          Dieses Kapitel ist aktuell nicht verfügbar.
+        </p>
+        <Link
+          to="/"
+          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80"
+        >
+          <CaretLeft className="h-4 w-4" />
+          Zurück zur Startseite
+        </Link>
+      </div>
+    </section>
+  ) : (
     <section className="py-12 sm:py-16">
       <div className="container max-w-4xl text-left">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
@@ -346,6 +344,14 @@ const GrammarChapter = () => {
         )}
       </div>
     </section>
+  );
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <Header />
+      <main className="flex-1">{content}</main>
+      <Footer />
+    </div>
   );
 };
 
