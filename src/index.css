@@ -149,7 +149,7 @@
   .table-container {
     --table-accent: var(--turquoise);
     --table-accent-light: var(--turquoise-light);
-    @apply overflow-x-auto rounded-2xl border border-border/50 bg-background/50;
+    @apply overflow-hidden overflow-x-auto rounded-2xl border border-border/50 bg-background/50;
   }
 
   .table-container table {
@@ -161,13 +161,17 @@
     @apply px-4 py-3 border-b border-border/40;
   }
 
-  .table-container th {
-    @apply text-left font-semibold;
+  .table-container thead {
     background: linear-gradient(
       90deg,
       hsl(var(--table-accent) / 0.18),
       hsl(var(--table-accent-light) / 0.08)
     );
+  }
+
+  .table-container th {
+    @apply text-left font-semibold;
+    background: transparent;
     color: hsl(var(--table-accent));
   }
 

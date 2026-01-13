@@ -371,36 +371,42 @@ const ArabicHighlight = ({ text, letter }: { text: string; letter: string }) => 
     const element = textRef.current;
     if (!element || !element.firstChild) return;
 
-    const matchLetters = highlightMap[letter] ?? [letter];
-    let matchIndex = -1;
-    let matchLength = 0;
+    const updateHighlight = () => {
+      const matchLetters = highlightMap[letter] ?? [letter];
+      let matchIndex = -1;
+      let matchLength = 0;
 
-    for (const candidate of matchLetters) {
-      const index = text.indexOf(candidate);
-      if (index >= 0) {
-        matchIndex = index;
-        matchLength = candidate.length;
-        break;
+      for (const candidate of matchLetters) {
+        const index = text.indexOf(candidate);
+        if (index >= 0) {
+          matchIndex = index;
+          matchLength = candidate.length;
+          break;
+        }
       }
-    }
 
-    if (matchIndex < 0) {
-      setHighlightRect(null);
-      return;
-    }
+      if (matchIndex < 0) {
+        setHighlightRect(null);
+        return;
+      }
 
-    const range = document.createRange();
-    range.setStart(element.firstChild, matchIndex);
-    range.setEnd(element.firstChild, matchIndex + matchLength);
+      const range = document.createRange();
+      range.setStart(element.firstChild, matchIndex);
+      range.setEnd(element.firstChild, matchIndex + matchLength);
 
-    const rect = range.getBoundingClientRect();
-    const parentRect = element.getBoundingClientRect();
-    setHighlightRect({
-      left: rect.left - parentRect.left,
-      top: rect.top - parentRect.top,
-      width: rect.width,
-      height: rect.height,
-    });
+      const rect = range.getBoundingClientRect();
+      const parentRect = element.getBoundingClientRect();
+      setHighlightRect({
+        left: rect.left - parentRect.left,
+        top: rect.top - parentRect.top,
+        width: rect.width,
+        height: rect.height,
+      });
+    };
+
+    updateHighlight();
+    window.addEventListener("resize", updateHighlight);
+    return () => window.removeEventListener("resize", updateHighlight);
   }, [letter, text]);
 
   return (
