@@ -296,7 +296,7 @@ const NegationExerciseSection = () => {
             </Button>
           </div>
 
-          <div className="table-container overflow-x-auto -mx-2 px-2">
+          <div className="table-container table-accent-turquoise overflow-x-auto -mx-2 px-2">
             <table className="w-full min-w-[720px]">
               <thead>
                 <tr>

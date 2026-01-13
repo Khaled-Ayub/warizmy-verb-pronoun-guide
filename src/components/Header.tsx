@@ -15,6 +15,7 @@ import {
 } from "@phosphor-icons/react";
 import { Link, useLocation } from "react-router-dom";
 import logoBlue from "@/assets/logo-blue.png";
+import { grammarTopicItems } from "@/data/grammarTopics";
 
 type MenuItem = {
   label: string;
@@ -26,9 +27,12 @@ type TopicItem = {
   labelAr: string;
   labelDe: string;
   number?: number;
+  href?: string;
 };
 
 const grammarItems: MenuItem[] = [
+  { label: "Alphabet", href: "/alphabet", icon: BookOpen },
+  { label: "Lesen lernen", href: "/lesen-lernen", icon: GraduationCap },
   { label: "Verbgrundlagen", href: "/#verbs", icon: Stack },
   { label: "Verbarten", href: "/#verb-types", icon: GraduationCap },
   { label: "Pronomen", href: "/#pronouns", icon: BookOpen },
@@ -39,51 +43,6 @@ const morphismItems: MenuItem[] = [
   { label: "Konjugation", href: "/#conjugation", icon: PenNib },
   { label: "Verneinungs-Übung", href: "/#negation-exercises", icon: Trophy },
   { label: "Übungen", href: "/vokabeltrainer", icon: Target },
-];
-
-const grammarTopicItems: TopicItem[] = [
-  { labelAr: "بَابُ الْكَلَامِ", labelDe: "Kapitel: Der Satz" },
-  { labelAr: "بَابُ الْإِعْرَابِ", labelDe: "Kapitel: I'rab (Flexion)" },
-  { labelAr: "بَابُ عَلَامَاتِ الْإِعْرَابِ", labelDe: "Kapitel: Zeichen des I'rab" },
-  { labelAr: "بَابُ عَلَامَاتِ النَّصْبِ", labelDe: "Kapitel: Zeichen des Akkusativs (Nasb)" },
-  { labelAr: "بَابُ عَلَامَاتِ الْخَفْضِ", labelDe: "Kapitel: Zeichen des Genitivs (Khafd)" },
-  { labelAr: "بَابُ عَلَامَاتِ الْجَزْمِ", labelDe: "Kapitel: Zeichen des Jussivs (Jazm)" },
-  {
-    labelAr: "فَصْلٌ في المعرب بالحروف والحركات",
-    labelDe: "Abschnitt: Deklinierbares mit Buchstaben und Vokalendungen",
-  },
-  { labelAr: "فائدة: المحل في الإعراب", labelDe: "Exkurs: Der Platz im I'rab" },
-  { labelAr: "بَابُ الْمَعْرِفَةِ وَالنَّكِرَةِ", labelDe: "Kapitel: Bestimmt und unbestimmt" },
-  { labelAr: "بَابُ الْأَفْعَالِ", labelDe: "Kapitel: Verben" },
-  { labelAr: "بَابُ إِعْرَابِ الْفِعْلِ", labelDe: "Kapitel: I'rab des Verbs" },
-  { labelAr: "بَابُ مَرْفُوعَاتِ الْأَسْمَاءِ", labelDe: "Kapitel: Nominative der Nomen" },
-  { labelAr: "بَابُ نَائِبِ الْفَاعِلِ", labelDe: "Kapitel: Stellvertreter des Subjekts" },
-  { labelAr: "بَابُ الْمُبْتَدَأِ وَالْخَبَرِ", labelDe: "Kapitel: Subjekt und Prädikat" },
-  { labelAr: "كَانَ وَأَخَوَاتُهَا", labelDe: "Kana und ihre Schwestern" },
-  { labelAr: "إِنَّ وَأَخَوَاتُهَا", labelDe: "Inna und ihre Schwestern" },
-  { labelAr: "ظَنَّ وَأَخَوَاتُهَا", labelDe: "Zanna und ihre Schwestern" },
-  { labelAr: "بَابُ النَّعْتِ", labelDe: "Kapitel: Attribut (Na't)" },
-  { labelAr: "بَابُ الْعَطْفِ", labelDe: "Kapitel: Koordination (Atf)" },
-  { labelAr: "بَابُ التَّوْكِيدِ", labelDe: "Kapitel: Bekräftigung (Tawkid)" },
-  { labelAr: "بَابُ الْبَدَلِ", labelDe: "Kapitel: Apposition (Badal)" },
-  { labelAr: "بَابُ مَنْصُوبَاتِ الْأَسْمَاءِ", labelDe: "Kapitel: Akkusative der Nomen" },
-  { labelAr: "بَابُ الْمَصْدَرِ", labelDe: "Kapitel: Masdar (Verbalnomen)" },
-  { labelAr: "بَابُ الظَّرْفِ", labelDe: "Kapitel: Adverbial (Zarf)" },
-  { labelAr: "بَابُ الْحَالِ", labelDe: "Kapitel: Umstand (Hal)" },
-  { labelAr: "بَابُ التَّمْيِيزِ", labelDe: "Kapitel: Spezifizierung (Tamyiz)" },
-  { labelAr: "بَابُ الِاسْتِثْنَاءِ", labelDe: "Kapitel: Ausnahme (Istithna')" },
-  { labelAr: "بَابُ لَا الْعَامِلَةِ عَمَلَ إِنَّ", labelDe: "Kapitel: La, die wie Inna wirkt" },
-  { labelAr: "بَابُ النِّدَاءِ", labelDe: "Kapitel: Anrufung (Nida')" },
-  { labelAr: "بَابُ الْمَفْعُولِ لِأَجْلِهِ", labelDe: "Kapitel: Zweckobjekt (Maf'ul li-ajlih)" },
-  { labelAr: "بَابُ الْمَفْعُولِ مَعَهُ", labelDe: "Kapitel: Begleitobjekt (Maf'ul ma'ahu)" },
-  { labelAr: "بَابُ مَخْفُوضَاتِ الْأَسْمَاءِ", labelDe: "Kapitel: Genitive der Nomen" },
-  { labelAr: "بَابُ الْإِضَافَةِ", labelDe: "Kapitel: Idafa (Genitivkonstruktion)" },
-  { labelAr: "بَابُ الْاِشْتِغَالِ", labelDe: "Kapitel: Ishtighal" },
-  { labelAr: "بَابُ التَّنَازُعِ", labelDe: "Kapitel: Tanazu'" },
-  { labelAr: "بَابُ التَّعَجُبِ", labelDe: "Kapitel: Verwunderung (Ta'ajjub)" },
-  { labelAr: "بَابُ العَدَدِ", labelDe: "Kapitel: Zahl" },
-  { labelAr: "بَابُ الوَقْفِ", labelDe: "Kapitel: Waqf (Pausenregeln)" },
-  { labelAr: "خَاتِمَةٌ نَسْأَلُ اللهَ حُسْنَهَا", labelDe: "Abschluss: Wir bitten Allah um Güte" },
 ];
 
 const morphismTopicItems: TopicItem[] = [
@@ -304,11 +263,8 @@ const Header = () => {
     );
   };
 
-  const renderTopic = (topic: TopicItem) => (
-    <div
-      key={`${topic.number ?? "g"}-${topic.labelAr}`}
-      className="rounded-xl border border-border/70 bg-white/70 px-3 py-2"
-    >
+  const renderTopic = (topic: TopicItem, onClick?: () => void) => {
+    const content = (
       <div className="flex items-start gap-2">
         {topic.number !== undefined && (
           <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-[10px] font-semibold text-primary">
@@ -322,8 +278,30 @@ const Header = () => {
           <span className="block text-[11px] text-muted-foreground">{topic.labelDe}</span>
         </div>
       </div>
-    </div>
-  );
+    );
+
+    const baseClasses =
+      "rounded-xl border border-border/70 bg-white/70 px-3 py-2 transition-shadow hover:shadow-sm";
+
+    if (topic.href) {
+      return (
+        <Link
+          key={`${topic.number ?? "g"}-${topic.labelAr}`}
+          to={topic.href}
+          onClick={onClick}
+          className={baseClasses}
+        >
+          {content}
+        </Link>
+      );
+    }
+
+    return (
+      <div key={`${topic.number ?? "g"}-${topic.labelAr}`} className={baseClasses}>
+        {content}
+      </div>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -514,14 +492,14 @@ const Header = () => {
                   Grammatikthemen
                 </div>
                 <div className="grid max-h-64 gap-2 overflow-y-auto pr-1">
-                  {grammarTopicItems.map((topic) => renderTopic(topic))}
+                  {grammarTopicItems.map((topic) => renderTopic(topic, handleLinkClick))}
                 </div>
 
                 <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   Morphismenthemen
                 </div>
                 <div className="grid max-h-64 gap-2 overflow-y-auto pr-1">
-                  {morphismTopicItems.map((topic) => renderTopic(topic))}
+                  {morphismTopicItems.map((topic) => renderTopic(topic, handleLinkClick))}
                 </div>
               </div>
             </nav>

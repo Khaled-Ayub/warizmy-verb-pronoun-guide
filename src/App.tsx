@@ -7,6 +7,9 @@ import Index from "./pages/Index";
 import VocabularyTrainer from "./pages/VocabularyTrainer";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import GrammarChapter from "./pages/GrammarChapter";
+import Alphabet from "./pages/Alphabet";
+import ReadingBasics from "./pages/ReadingBasics";
 
 const queryClient = new QueryClient();
 
@@ -19,8 +22,14 @@ const App = () => (
         <Routes>
           {/* Startseite */}
           <Route path="/" element={<Index />} />
+          {/* Alphabet */}
+          <Route path="/alphabet" element={<Alphabet />} />
+          {/* Lesen lernen */}
+          <Route path="/lesen-lernen" element={<ReadingBasics />} />
           {/* Vokabeltrainer mit Quiz */}
           <Route path="/vokabeltrainer" element={<VocabularyTrainer />} />
+          {/* Grammatik-Kapitel */}
+          <Route path="/grammatik/kapitel-:chapterNumber" element={<GrammarChapter />} />
           {/* Über uns */}
           <Route path="/about" element={<About />} />
           {/* 404 - Seite nicht gefunden */}

@@ -258,7 +258,7 @@ const ConjugationSection = () => {
             {/* ============================================ */}
             <TabsContent value="past" className="mt-0">
               {/* overflow-x-auto für horizontales Scrollen auf kleinen Bildschirmen */}
-              <div className="table-container overflow-x-auto -mx-2 px-2">
+              <div className="table-container table-accent-turquoise overflow-x-auto -mx-2 px-2">
                 {/* RTL-Tabelle: Pronomen beginnt rechts, min-width für Mobile */}
                 <table dir="rtl" className="w-full min-w-[320px]">
                   <thead>
@@ -307,7 +307,7 @@ const ConjugationSection = () => {
             {/* ============================================ */}
             <TabsContent value="present" className="mt-0">
               {/* overflow-x-auto für horizontales Scrollen auf kleinen Bildschirmen */}
-              <div className="table-container overflow-x-auto -mx-2 px-2">
+              <div className="table-container table-accent-turquoise overflow-x-auto -mx-2 px-2">
                 {/* RTL-Tabelle: Pronomen beginnt rechts, min-width für Mobile */}
                 <table dir="rtl" className="w-full min-w-[320px]">
                   <thead>
@@ -361,7 +361,7 @@ const ConjugationSection = () => {
             {/* ============================================ */}
             <TabsContent value="imperative" className="mt-0">
               {/* overflow-x-auto für horizontales Scrollen auf kleinen Bildschirmen */}
-              <div className="table-container overflow-x-auto -mx-2 px-2">
+              <div className="table-container table-accent-turquoise overflow-x-auto -mx-2 px-2">
                 {/* RTL-Tabelle: Pronomen beginnt rechts, min-width für Mobile */}
                 <table dir="rtl" className="w-full min-w-[320px]">
                   <thead>
@@ -421,7 +421,7 @@ const ConjugationSection = () => {
             </p>
           </div>
 
-          <div className="table-container overflow-x-auto -mx-2 px-2">
+          <div className="table-container table-accent-turquoise overflow-x-auto -mx-2 px-2">
             <table dir="rtl" className="w-full min-w-[520px]">
               <thead>
                 <tr>
