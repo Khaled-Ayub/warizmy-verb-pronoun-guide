@@ -415,7 +415,7 @@ const Header = () => {
 
         {mobileMenuOpen && (
           <div className="border-t border-border/50 lg:hidden">
-            <nav className="p-4">
+            <nav className="p-4 max-h-[calc(100vh-72px)] overflow-y-auto pr-1">
               <div className="space-y-3">
                 {renderItem({ label: "Startseite", href: "/", icon: House })}
 
